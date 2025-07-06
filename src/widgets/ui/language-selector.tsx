@@ -10,7 +10,7 @@ import {
 } from '@/shared/ui'
 import { Globe } from 'lucide-react'
 
-export  function LanguageSelector() {
+export  function LanguageSelector({align = 'start'}: {align?: 'start' | 'end'}) {
   const pathname = usePathname()
   return (
     <DropdownMenu>
@@ -20,7 +20,7 @@ export  function LanguageSelector() {
           <span className="sr-only">Language selector</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="flex-col flex" align="end">
+      <DropdownMenuContent className="flex-col flex" align={align}>
         {LOCALES_NAMES.map((name, index) => (
           <Link key={index} href={pathname} locale={name?.locale}>
             <DropdownMenuItem>{name?.name}</DropdownMenuItem>
