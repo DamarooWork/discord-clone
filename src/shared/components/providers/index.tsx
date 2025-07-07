@@ -1,16 +1,16 @@
 'use client'
 import { QueryClientProvider } from './query-client-provider'
 import { ThemeProvider } from './theme-provider'
-import NextAuthProvider from './next-auth-provider'
+import ClerkProvider from './clerk-provider'
 interface Props {
   children: React.ReactNode
 }
 export function Providers({ children }: Props) {
   return (
-      <NextAuthProvider>
+      <ClerkProvider>
         <QueryClientProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </QueryClientProvider>
-      </NextAuthProvider>
+      </ClerkProvider>
   )
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 import './globals.css'
 import { Providers } from '@/shared/components'
 import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
@@ -9,8 +9,7 @@ import { notFound } from 'next/navigation'
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const openSans = Open_Sans({
   subsets: ['latin'],
 })
 
@@ -38,7 +37,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} bg-background text-foreground  min-h-[150vh]`}
+        className={`${openSans.className}`}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
