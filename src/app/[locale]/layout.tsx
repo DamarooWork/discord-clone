@@ -6,6 +6,7 @@ import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
+import { cn } from '@/shared/lib/utils'
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
@@ -37,7 +38,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${openSans.className}`}
+        className={cn(openSans.className, 'dark:bg-[#313338]')}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
