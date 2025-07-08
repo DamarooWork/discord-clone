@@ -1,24 +1,10 @@
-import { Button } from '@/shared/ui'
-import { Container } from '@/shared/components'
-import { LanguageSelector, ThemeSelector } from '@/widgets'
-import { getTranslations } from 'next-intl/server'
-import { UserButton } from '@clerk/nextjs'
-import { prisma } from '@/shared/lib/prisma'
+import { Locale } from 'next-intl'
+import { HomePage } from '@/views/home-page'
 
-export default async function Home() {
-  const t = await getTranslations('home')
-
-  const profiles = await prisma.profile.findMany()
-  console.log(profiles)
-  return (
-    <Container>
-      <div className="text-4xl font-bold flex flex-col gap-4">
-        <div>{t('discord')}</div>
-        <Button variant="ghost">Click me</Button>
-        <UserButton />
-        <ThemeSelector />
-        <LanguageSelector />
-      </div>
-    </Container>
-  )
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>
+}) {
+  return <HomePage params={params} />
 }
