@@ -4,7 +4,6 @@ import { CreateServerSchema } from './create-server-schema'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,11 +12,14 @@ import {
   Button,
 } from '@/shared/ui'
 import z from 'zod'
+import { cn } from '@/shared/lib/utils/cn'
+import { FileUploader } from '@/widgets'
 
 interface Props {
   className?: string
+  children?: React.ReactNode
 }
-export function CreateServerForm({ className }: Props) {
+export function CreateServerForm({ className, children }: Props) {
   const form = useForm({
     resolver: zodResolver(CreateServerSchema),
     defaultValues: {
@@ -34,8 +36,11 @@ export function CreateServerForm({ className }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="flex justify-center items-center">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={cn(className, 'space-y-4')}
+      >
+        <div className="bg-red-200 -mx-6 px-6 py-4 my-4  text-red-500">
           TODO: Image upload
         </div>
         <FormField
@@ -47,13 +52,43 @@ export function CreateServerForm({ className }: Props) {
                 Server name
               </FormLabel>
               <FormControl>
-                <Input  className=' dark:bg-zinc-300/50' disabled={isLoading} {...field} placeholder="for example: My Server" />
+                <Input
+                  className=" dark:bg-zinc-300/50"
+                  disabled={isLoading}
+                  {...field}
+                  placeholder="for example: My Server"
+                />
               </FormControl>
-              <FormDescription />
               <FormMessage />
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="imageUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+                Server image
+              </FormLabel>
+              <FormControl>
+                <FileUploader  endpoint='imageUploader' value={field.value} onChange={field.onChange} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <footer className="py-4 flex justify-end">
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={isLoading}
+            className="w-full"
+          >
+            Create
+          </Button>
+        </footer>
+        {children}
       </form>
     </Form>
   )

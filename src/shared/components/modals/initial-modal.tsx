@@ -1,9 +1,11 @@
 'use client'
 
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/shared/ui'
@@ -13,17 +15,19 @@ import { ThemeSelector } from '@/widgets'
 export function InitialModal() {
   return (
     <Dialog open>
-      <DialogContent className="bg-foreground text-background p-0 overflow-hidden">
+      <DialogContent className="bg-foreground text-background p-0  overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Customize your server
           </DialogTitle>
-          {/* <ThemeSelector /> */}
+          <ThemeSelector />
           <DialogDescription className="text-center text-primary-foreground text-md">
             Give your server a personality with a custom name and avatar. You
             can always change it later.
           </DialogDescription>
-          <CreateServerForm />
+          <CreateServerForm/>
+           
+         
         </DialogHeader>
       </DialogContent>
     </Dialog>

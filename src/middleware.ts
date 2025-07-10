@@ -5,7 +5,11 @@ import { routing } from './i18n/routing'
 
 const intlMiddleware = createMiddleware(routing)
 
-const isProtectedRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)'])
+const isProtectedRoute = createRouteMatcher([
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/api/uploadthing',
+])
 
 export default clerkMiddleware(async (auth, req) => {
   if (!isProtectedRoute(req)) await auth.protect()
