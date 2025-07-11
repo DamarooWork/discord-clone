@@ -1,0 +1,1 @@
+export { actionDeleteUploadThingFile } from './delete-uploadthing-file'

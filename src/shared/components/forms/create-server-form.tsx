@@ -40,9 +40,25 @@ export function CreateServerForm({ className, children }: Props) {
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(className, 'space-y-4')}
       >
-        <div className="bg-red-200 -mx-6 px-6 py-4 my-4  text-red-500">
-          TODO: Image upload
-        </div>
+        <FormField
+          control={form.control}
+          name="imageUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+                Server image
+              </FormLabel>
+              <FormControl>
+                <FileUploader
+                  endpoint="imageUploader"
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="name"
@@ -53,26 +69,11 @@ export function CreateServerForm({ className, children }: Props) {
               </FormLabel>
               <FormControl>
                 <Input
-                  className=" dark:bg-zinc-300/50"
+                  className=" "
                   disabled={isLoading}
                   {...field}
                   placeholder="for example: My Server"
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="imageUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
-                Server image
-              </FormLabel>
-              <FormControl>
-                <FileUploader  endpoint='imageUploader' value={field.value} onChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>
