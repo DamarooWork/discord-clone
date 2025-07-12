@@ -8,11 +8,11 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+   
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '5yv1nx4tqw.ufs.sh',
+        hostname: 'p01u8bjdt0.ufs.sh',
       },
     ],
   },

@@ -14,12 +14,16 @@ import {
 import z from 'zod'
 import { cn } from '@/shared/lib/utils/cn'
 import { FileUploader } from '@/widgets'
+import { toast } from 'sonner'
+import { useRouter } from '@/i18n/navigation'
+import axios from 'axios'
 
 interface Props {
   className?: string
   children?: React.ReactNode
 }
 export function CreateServerForm({ className, children }: Props) {
+  const router = useRouter()  
   const form = useForm({
     resolver: zodResolver(CreateServerSchema),
     defaultValues: {
@@ -31,7 +35,14 @@ export function CreateServerForm({ className, children }: Props) {
   const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof CreateServerSchema>) => {
-    console.log(values)
+    try {
+      await axios.post('/api/servers',values)
+      toast.success('The server was created!')
+      form.reset()
+      router.refresh()
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -52,6 +63,7 @@ export function CreateServerForm({ className, children }: Props) {
                 <FileUploader
                   endpoint="imageUploader"
                   value={field.value}
+                  isLoading={isLoading}
                   onChange={field.onChange}
                 />
               </FormControl>

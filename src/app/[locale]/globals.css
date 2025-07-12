@@ -12,6 +12,7 @@ body,
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-main: var(--main);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -84,6 +85,7 @@ body,
   --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
   --sidebar-border: oklch(0.923 0.003 48.717);
   --sidebar-ring: oklch(0.709 0.01 56.259);
+--main: oklch(67.3% .182 276.935)
 }
 
 .dark {
@@ -118,6 +120,7 @@ body,
   --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.553 0.013 58.071);
+  --main: oklch(58.5% .233 277.117)
 }
 
 @layer base {

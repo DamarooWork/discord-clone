@@ -1,11 +1,9 @@
 'use client'
 
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/shared/ui'
@@ -25,9 +23,7 @@ export function InitialModal() {
             Give your server a personality with a custom name and avatar. You
             can always change it later.
           </DialogDescription>
-          <CreateServerForm/>
-           
-         
+          <CreateServerForm />
         </DialogHeader>
       </DialogContent>
     </Dialog>

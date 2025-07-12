@@ -6,6 +6,6 @@ interface Props {
 export  function  ImageLoader({className}:Props){
 
   return (
-    <Skeleton className={cn(className, "")} />
+    <Skeleton className={cn(className, "bg-main")} />
   )
 }
