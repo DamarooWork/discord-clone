@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from './prisma'
 
-export async function CurrentProfile() {
+export async function currentProfile() {
   const { userId } = await auth()
   if (!userId) {
     return null

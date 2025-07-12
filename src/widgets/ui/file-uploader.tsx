@@ -41,7 +41,7 @@ export function FileUploader({ className, endpoint, value, onChange, isLoading=f
       <section
         className={cn(className, 'flex justify-center items-center gap-4')}
       >
-        <div className="size-40 relative group/img ring-4 rounded-full ring-main shadow-lg  shadow-main">
+        <div className="size-40 relative group/img ring-4 rounded-full ring-main shadow-lg shadow-main">
           {!isImageLoaded && (
             <ImageLoader className="size-40 rounded-full absolute inset-0" />
           )}

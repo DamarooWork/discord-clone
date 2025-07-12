@@ -15,8 +15,8 @@ export  function LanguageSelector({align = 'start'}: {align?: 'start' | 'end'}) 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Globe className="h-[1.2rem] w-[1.2rem]" />
+        <Button className='size-12' variant="outline" size="icon">
+          <Globe className="size-5" />
           <span className="sr-only">Language selector</span>
         </Button>
       </DropdownMenuTrigger>
