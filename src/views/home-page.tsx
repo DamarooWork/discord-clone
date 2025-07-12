@@ -35,13 +35,13 @@ export async function HomePage({
   }
   return (
     <Container>
-      <main className="text-4xl font-bold flex flex-col gap-4">
+      <div className="text-4xl font-bold flex flex-col gap-4">
         {t('discord')}
         <Button variant="default">Click me</Button>
         <UserButton />
         <ThemeSelector />
         <LanguageSelector />
-      </main>
+      </div>
     </Container>
   )
 }
