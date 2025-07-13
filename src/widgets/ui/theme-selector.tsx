@@ -7,16 +7,10 @@ import { useTheme } from 'next-themes'
 import {
   Button,
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/ui'
 
-export function ThemeSelector({
-  align = 'start',
-}: {
-  align?: 'start' | 'end'
-}) {
+export function ThemeSelector() {
   const { setTheme, theme } = useTheme()
 
   function handleClick() {

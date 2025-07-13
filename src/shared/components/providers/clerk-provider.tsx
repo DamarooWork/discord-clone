@@ -5,5 +5,7 @@ export default function ClerkProvider({
 }: {
   children: React.ReactNode
 }) {
-  return <ClerkProviderComponent>{children}</ClerkProviderComponent>
+  return <ClerkProviderComponent  appearance={{
+    cssLayerName: 'clerk',
+  }}>{children}</ClerkProviderComponent>
 }
