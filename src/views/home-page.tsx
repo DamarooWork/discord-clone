@@ -5,7 +5,7 @@ import { getLocale, getTranslations } from 'next-intl/server'
 import { UserButton } from '@clerk/nextjs'
 import { initialProfile, prisma } from '@/shared/lib'
 import { redirect } from '@/i18n/navigation'
-import { InitialModal } from '@/shared/components/modals'
+import {  InitialModal } from '@/shared/components/modals'
 
 export async function HomePage() {
   const t = await getTranslations('home')

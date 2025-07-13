@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Dialog,
   DialogContent,
@@ -6,10 +8,17 @@ import {
   DialogTitle,
 } from '@/shared/ui'
 import { CreateServerForm } from '@/shared/components/forms'
+import { useModalStore } from '@/shared/store'
 
-export function InitialModal() {
+export function CreateServerModal() {
+  const { isOpen, onClose, type } = useModalStore()
+  const isModalOpen = isOpen && type === 'createServer'
+
+  const handleClose = () => {
+    onClose()
+  }
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-foreground text-background p-0  overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">

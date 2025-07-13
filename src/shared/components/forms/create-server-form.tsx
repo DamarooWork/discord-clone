@@ -1,3 +1,4 @@
+'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { CreateServerSchema } from './create-server-schema'
@@ -17,6 +18,7 @@ import { FileUploader } from '@/widgets'
 import { toast } from 'sonner'
 import { useRouter } from '@/i18n/navigation'
 import axios from 'axios'
+import { useModalStore } from '@/shared/store'
 
 interface Props {
   className?: string
@@ -33,13 +35,14 @@ export function CreateServerForm({ className, children }: Props) {
   })
 
   const isLoading = form.formState.isSubmitting
-
+  const { onClose } = useModalStore()
   const onSubmit = async (values: z.infer<typeof CreateServerSchema>) => {
     try {
       await axios.post('/api/servers',values)
       toast.success('The server was created!')
       form.reset()
       router.refresh()
+      onClose()
     } catch (e) {
       console.log(e)
     }

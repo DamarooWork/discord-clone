@@ -1,6 +1,7 @@
 'use client'
 import { Link, usePathname } from '@/i18n/navigation'
 import { LOCALES_NAMES } from '@/shared/lib/contants'
+import { cn } from '@/shared/lib/utils'
 import {
   Button,
   DropdownMenu,
@@ -9,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/ui'
 import { Globe } from 'lucide-react'
+import { useLocale } from 'next-intl'
 
 export  function LanguageSelector({align = 'start'}: {align?: 'start' | 'end'}) {
   const pathname = usePathname()
@@ -23,7 +25,7 @@ export  function LanguageSelector({align = 'start'}: {align?: 'start' | 'end'}) 
       <DropdownMenuContent className="flex-col flex" align={align}>
         {LOCALES_NAMES.map((name, index) => (
           <Link key={index} href={pathname} locale={name?.locale}>
-            <DropdownMenuItem>{name?.name}</DropdownMenuItem>
+            <DropdownMenuItem className={cn(useLocale() === name?.locale && 'font-extrabold')}>{name?.name}</DropdownMenuItem>
           </Link>
         ))}
       </DropdownMenuContent>
