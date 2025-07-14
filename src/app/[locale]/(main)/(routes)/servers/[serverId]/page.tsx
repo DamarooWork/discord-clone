@@ -1,3 +1,4 @@
+
 import { ServerPage } from '@/views'
 
 interface ServersPageProps {
@@ -5,5 +6,6 @@ interface ServersPageProps {
 }
 export default async function Server({ params }: ServersPageProps) {
   const { serverId } = await params
+ 
   return <ServerPage serverId={serverId} />
 }

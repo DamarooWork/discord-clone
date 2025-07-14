@@ -25,7 +25,7 @@ export function ServerItem({ server }: Props) {
       <TooltipWidget label={server.name} side="right">
         <Link
           href={`/servers/${server.id}`}
-          className={cn('block relative size-12 group/link')}
+          className={cn('block relative size-12 group/link group-active:translate-y-0.5 transition-all')}
         >
           <Image
             src={server.imageUrl}

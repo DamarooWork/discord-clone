@@ -90,6 +90,8 @@ export function FileUploader({ className, endpoint, value, onChange, isLoading=f
         }}
         onUploadError={(error: Error) => {
           toast.error(`Упс! ${error.message}`)
+          console.log(error);
+          
         }}
       />
     </section>

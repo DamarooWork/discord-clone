@@ -7,7 +7,7 @@ export default async function MainLayout({ children }: Props) {
   return (
     <>
       <NavigationSidebar />
-      <main className="md:pl-[72px]">{children}</main>
+      <main className="md:pl-18 min-h-screen">{children}</main>
     </>
   )
 }

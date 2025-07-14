@@ -6,6 +6,9 @@ import { routing } from './i18n/routing'
 const intlMiddleware = createMiddleware(routing)
 
 const isProtectedRoute = createRouteMatcher([
+  '/(.*)/sign-in(.*)',
+  '/(.*)/sign-up(.*)',
+  '/(.*)/api/uploadthing',
   '/sign-in(.*)',
   '/sign-up(.*)',
   '/api/uploadthing',
@@ -23,5 +26,6 @@ export const config = {
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
     // Always run for API routes
     '/(api|trpc)(.*)',
+    '/(.*)/(api|trpc)(.*)',
   ],
 }
