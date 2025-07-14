@@ -1,8 +1,8 @@
 'use client'
 
+import { ModalType, useModalStore } from '@/shared/store'
 import { ServerWithMembersWithProfiles } from '@/shared/types'
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -27,18 +27,26 @@ interface ServerHeaderProps {
 export function ServerHeader({ server, role }: ServerHeaderProps) {
   const isAdmin = role === MemberRole.ADMIN
   const isModerator = isAdmin || role === MemberRole.MODERATOR
+
+  const { onOpen } = useModalStore()
+  function handleInviteClick() {
+    onOpen(ModalType.INVITE, {server})
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>
-        <button className=" w-full font-semibold flex items-center justify-between px-3 h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-neutral-300/50 dark:hover:bg-neutral-700/50 transition-all ease-in-out cursor-pointer rounded-b-md shadow-xl ">
+        <button className="w-full font-semibold flex items-center justify-between px-3 h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-neutral-300/50 dark:hover:bg-neutral-700/50 transition-all ease-in-out cursor-pointer rounded-b-md shadow-xl ">
           <p className="truncate">{server.name}</p>
           <ChevronDown className="size-5 min-w-5 min-h-5" />
           <span className="sr-only">Server with name {server.name}</span>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className=" w-56 text-xs font-medium  ">
+      <DropdownMenuContent className="w-56 text-xs font-medium">
         {isModerator && (
-          <DropdownMenuItem className="text-main flex justify-between items-center px-3 py-2 text-sm">
+          <DropdownMenuItem
+            onClick={handleInviteClick}
+            className="text-main flex justify-between items-center px-3 py-2 text-sm"
+          >
             Invite people
             <span className="sr-only">Invite people</span>
             <UserPlus className="size-4 min-w-4 min-h-4" />
@@ -67,14 +75,20 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
         )}
         {isModerator && <DropdownMenuSeparator />}
         {isAdmin && (
-          <DropdownMenuItem className="text-destructive flex justify-between items-center  px-3 py-2 text-sm">
+          <DropdownMenuItem
+            variant="destructive"
+            className="text-destructive flex justify-between items-center  px-3 py-2 text-sm"
+          >
             Delete Server
             <span className="sr-only"> Delete Server</span>
             <Trash className="size-4 min-w-4 min-h-4 text-destructive" />
           </DropdownMenuItem>
         )}
         {!isAdmin && (
-          <DropdownMenuItem className="text-destructive flex justify-between items-center px-3 py-2 text-sm">
+          <DropdownMenuItem
+            variant="destructive"
+            className="text-destructive flex justify-between items-center px-3 py-2 text-sm"
+          >
             Leave Server
             <span className="sr-only"> Leave Server</span>
             <LogOut className="size-4 min-w-4 min-h-4 text-destructive" />

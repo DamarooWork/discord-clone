@@ -1,1 +1,1 @@
-export { useModalStore } from './zustand'
+export { useModalStore, ModalType } from './modal-store'

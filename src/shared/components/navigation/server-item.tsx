@@ -31,7 +31,7 @@ export function ServerItem({ server }: Props) {
             src={server.imageUrl}
             alt={server.name}
             fill
-            className="rounded-3xl group-hover/link:rounded-md transition-all ease-in-out"
+            className="rounded-3xl group-hover/link:rounded-md transition-all ease-in-out object-cover"
           />
         </Link>
       </TooltipWidget>
