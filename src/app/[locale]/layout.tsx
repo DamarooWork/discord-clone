@@ -38,8 +38,8 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-          <link rel="icon/jpg" href="icon.jpg" />
-        </head>
+        <link rel="icon/jpg" href="icon.jpg" />
+      </head>
       <body className={cn(openSans.className, 'dark:bg-[#313338]')}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>{children}</Providers>

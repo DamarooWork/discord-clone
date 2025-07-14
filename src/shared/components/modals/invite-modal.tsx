@@ -30,7 +30,7 @@ export function InviteModal() {
     setCopied(false)
   }
   function handleCopyText() {
-    if (isLoading)  return
+    if (isLoading) return
     navigator.clipboard.writeText(inviteLink)
     if (!copied) {
       setCopied(true)
@@ -40,15 +40,18 @@ export function InviteModal() {
       }, 3000)
     }
   }
-  const handleGenerateLink =  async() => {
-    try{
+  const handleGenerateLink = async () => {
+    try {
       setIsLoading(true)
-      const response = await axios.patch(`/api/servers/${data.server?.id}/invite-code`)
-      onOpen(ModalType.INVITE, {server: response.data})
+      setCopied(false)
+      const response = await axios.patch(
+        `/api/servers/${data.server?.id}/invite-code`
+      )
+      onOpen(ModalType.INVITE, { server: response.data })
       toast.success('New link was generated!')
     } catch (e) {
       toast.error('Something went wrong!')
-      console.log(e);
+      console.log(e)
     } finally {
       setIsLoading(false)
     }
@@ -58,7 +61,7 @@ export function InviteModal() {
       <DialogContent className="bg-foreground text-background p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Here you invite link!
+            Here your invite link!
           </DialogTitle>
           <DialogDescription className="text-center text-primary-foreground text-md">
             You can invite people with this link!
@@ -70,17 +73,26 @@ export function InviteModal() {
           </Label>
           <div className="relative w-full">
             <Input
+              autoFocus={false}
               className="pr-8 truncate text-center border-main border-3"
               value={inviteLink}
               disabled={isLoading}
               readOnly
             />
             {copied ? (
-              <Check className={cn('size-5 absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer  will-change-transform active:scale-90 transition-transform ease-in-out text-green-600', isLoading && 'opacity-50')} />
+              <Check
+                className={cn(
+                  'size-5 absolute top-1/2 right-2 -translate-y-1/2 text-green-600',
+                  isLoading && 'opacity-50'
+                )}
+              />
             ) : (
               <Copy
                 onClick={handleCopyText}
-                className={cn('size-5 absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer  will-change-transform active:scale-90 transition-all ease-in-out', isLoading && 'opacity-50')}
+                className={cn(
+                  'size-5 absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer  will-change-transform active:scale-90 transition-all ease-in-out',
+                  isLoading && 'opacity-50'
+                )}
               />
             )}
           </div>

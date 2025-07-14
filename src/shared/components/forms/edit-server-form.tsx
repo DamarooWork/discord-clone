@@ -20,35 +20,33 @@ import { useRouter } from '@/i18n/navigation'
 import axios from 'axios'
 import { useModalStore } from '@/shared/store'
 import { actionRevalidatePath } from '@/shared/lib/actions'
+import { Server } from '@prisma/client'
 
 interface Props {
   className?: string
   children?: React.ReactNode
+  server?: Server
 }
-export function CreateServerForm({ className, children }: Props) {
-  const router = useRouter()  
+export function EditServerForm({ className, children, server }: Props) {
+  const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateServerSchema),
     defaultValues: {
-      name: '',
-      imageUrl: '',
+      name: server?.name ?? '',
+      imageUrl: server?.imageUrl ?? '',
     },
   })
-const {onClose} = useModalStore()
+  const { onClose } = useModalStore()
   const isLoading = form.formState.isSubmitting
   const onSubmit = async (values: z.infer<typeof CreateServerSchema>) => {
     try {
-     const server= await axios.post('/api/servers',values)
-      toast.success('The server was created!')
-      form.reset()
-      router.refresh()
+      await axios.patch(`/api/servers/${server?.id}`, values)
+      toast.success('The server was updated!')
       await actionRevalidatePath()
       onClose()
-      router.push(`/servers/${server.data.id}`)
     } catch (e) {
       toast.error('Something went wrong!')
-      console.log(e);
-      
+      console.log(e)
     }
   }
 
@@ -105,7 +103,7 @@ const {onClose} = useModalStore()
             disabled={isLoading}
             className="w-full"
           >
-            Create
+            Save
           </Button>
         </footer>
         {children}

@@ -29,9 +29,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
   const isModerator = isAdmin || role === MemberRole.MODERATOR
 
   const { onOpen } = useModalStore()
-  function handleInviteClick() {
-    onOpen(ModalType.INVITE, {server})
-  }
+ 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>
@@ -44,7 +42,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
       <DropdownMenuContent className="w-56 text-xs font-medium">
         {isModerator && (
           <DropdownMenuItem
-            onClick={handleInviteClick}
+            onClick={() => onOpen(ModalType.INVITE, { server })}
             className="text-main flex justify-between items-center px-3 py-2 text-sm"
           >
             Invite people
@@ -53,7 +51,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="flex justify-between items-center px-3 py-2 text-sm">
+          <DropdownMenuItem   onClick={() => onOpen(ModalType.EDIT_SERVER, { server })} className="flex justify-between items-center px-3 py-2 text-sm">
             Server Settings
             <span className="sr-only">Server Settings</span>
             <Settings className="size-4 min-w-4 min-h-4" />

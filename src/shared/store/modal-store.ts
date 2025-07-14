@@ -4,6 +4,7 @@ import { create } from 'zustand'
 export const ModalType = {
   CREATE_SERVER: 'createServer',
   INVITE: 'invite',
+  EDIT_SERVER: 'editServer',
 } as const
 export type ModalType = typeof ModalType[keyof typeof ModalType]
 
