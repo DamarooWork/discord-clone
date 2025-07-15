@@ -21,6 +21,7 @@ import axios from 'axios'
 import { useModalStore } from '@/shared/store'
 import { actionRevalidatePath } from '@/shared/lib/actions'
 import { Server } from '@prisma/client'
+import { useEffect, useState } from 'react'
 
 interface Props {
   className?: string
@@ -37,8 +38,17 @@ export function EditServerForm({ className, children, server }: Props) {
     },
   })
   const { onClose } = useModalStore()
+
   const isLoading = form.formState.isSubmitting
+
   const onSubmit = async (values: z.infer<typeof CreateServerSchema>) => {
+    if (
+      server?.name === form.getValues('name') &&
+      server?.imageUrl === form.getValues('imageUrl')
+    ) {
+      toast.success('Change something for update!')
+      return
+    }
     try {
       await axios.patch(`/api/servers/${server?.id}`, values)
       toast.success('The server was updated!')

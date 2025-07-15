@@ -29,7 +29,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
   const isModerator = isAdmin || role === MemberRole.MODERATOR
 
   const { onOpen } = useModalStore()
- 
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>
@@ -51,14 +51,20 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem   onClick={() => onOpen(ModalType.EDIT_SERVER, { server })} className="flex justify-between items-center px-3 py-2 text-sm">
+          <DropdownMenuItem
+            onClick={() => onOpen(ModalType.EDIT_SERVER, { server })}
+            className="flex justify-between items-center px-3 py-2 text-sm"
+          >
             Server Settings
             <span className="sr-only">Server Settings</span>
             <Settings className="size-4 min-w-4 min-h-4" />
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="flex justify-between items-center px-3 py-2 text-sm">
+          <DropdownMenuItem
+            onClick={() => onOpen(ModalType.MEMBERS, { server })}
+            className="flex justify-between items-center px-3 py-2 text-sm"
+          >
             Manage Members
             <span className="sr-only">Manage Members</span>
             <Users className="size-4 min-w-4 min-h-4" />

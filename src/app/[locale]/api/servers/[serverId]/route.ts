@@ -12,7 +12,7 @@ export async function PATCH(
         status: 401,
       })
     }
-    const serverId = await params.serverId
+    const {serverId} = await params
     if (!serverId) {
       return new NextResponse('[SERVER_ID_PATCH] Invalid server id', {
         status: 400,

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import './globals.css'
-import { Providers } from '@/shared/components'
+import { Providers } from '@/shared/components/providers'
 import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'

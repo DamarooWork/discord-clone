@@ -1,4 +1,4 @@
-import { CreateServerModal, EditServerModal, InviteModal } from '@/shared/components/modals'
+import { CreateServerModal, EditServerModal, InviteModal, MembersModal } from '@/shared/components/modals'
 
 export function ModalsProvider() {
   return (
@@ -6,6 +6,7 @@ export function ModalsProvider() {
       <CreateServerModal />
       <InviteModal/>
       <EditServerModal />
+      <MembersModal/>
     </>
   )
 }

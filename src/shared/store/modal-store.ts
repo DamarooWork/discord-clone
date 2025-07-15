@@ -1,15 +1,16 @@
-import { Server } from '@prisma/client'
 import { create } from 'zustand'
+import { ServerWithMembersWithProfiles } from '../types'
 
 export const ModalType = {
   CREATE_SERVER: 'createServer',
   INVITE: 'invite',
   EDIT_SERVER: 'editServer',
+  MEMBERS: 'members',
 } as const
 export type ModalType = typeof ModalType[keyof typeof ModalType]
 
 interface ModalData {
-  server?: Server
+  server?: ServerWithMembersWithProfiles
 }
 interface ModalStore {
   type: ModalType | null
