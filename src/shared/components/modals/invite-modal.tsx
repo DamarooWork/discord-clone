@@ -58,7 +58,7 @@ export function InviteModal() {
   }
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-foreground text-background p-0 overflow-hidden">
+      <DialogContent onOpenAutoFocus={(e)=>e.preventDefault()} className="bg-foreground text-background p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Here your invite link!

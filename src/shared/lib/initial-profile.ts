@@ -3,8 +3,8 @@ import { auth, currentUser } from '@clerk/nextjs/server'
 export async function initialProfile() {
   const user = await currentUser()
   if (!user) {
-     auth.protect()
-     return null
+    auth.protect()
+    return null
   }
   const profile = await prisma.profile.findUnique({
     where: {
@@ -18,7 +18,10 @@ export async function initialProfile() {
   const newProfile = await prisma.profile.create({
     data: {
       userId: user.id,
-      name: `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim(),
+      name:
+        user.username ??
+        `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim() ??
+        '',
       email: user.emailAddresses?.[0]?.emailAddress ?? '',
       imageUrl: user.imageUrl ?? '',
     },

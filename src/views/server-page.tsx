@@ -16,5 +16,5 @@ export async function ServerPage({ serverId }: Props) {
     const locale = await getLocale()
     return redirect({ href: '/', locale })
   }
-  return <> Server {server.name}</>
+  return <></>
 }

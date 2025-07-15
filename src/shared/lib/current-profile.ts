@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { prisma } from './prisma'
 
 export async function currentProfile() {
@@ -11,5 +11,30 @@ export async function currentProfile() {
       userId,
     },
   })
+  const user = await currentUser()
+  if (!user) {
+    auth.protect()
+    return null
+  }
+  if (
+    user.username !== profile?.name ||
+    user.emailAddresses?.[0]?.emailAddress !== profile?.email ||
+    user.imageUrl !== profile?.imageUrl
+  ) {
+    await prisma.profile.update({
+      where: {
+        userId,
+      },
+      data: {
+        name:
+          user.username ??
+          `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim() ??
+          '',
+        email: user.emailAddresses?.[0]?.emailAddress ?? '',
+        imageUrl: user.imageUrl ?? '',
+      },
+    })
+  }
+
   return profile
 }

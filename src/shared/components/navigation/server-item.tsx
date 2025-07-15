@@ -32,6 +32,7 @@ export function ServerItem({ server }: Props) {
             alt={server.name}
             fill
             className="rounded-3xl group-hover/link:rounded-md transition-all ease-in-out object-cover"
+            sizes='48px'
           />
         </Link>
       </TooltipWidget>
