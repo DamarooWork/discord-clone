@@ -6,6 +6,18 @@ export async function PATCH(
   { params }: { params: { serverId: string; memberId: string } }
 ) {
   try {
+    const profile = await currentProfile()
+    if (!profile) {
+      return new NextResponse(
+        JSON.stringify({
+          message:
+            '[SERVER_MEMBER_ID_PATCH] You need to be logged in to update a member role',
+        }),
+        {
+          status: 401,
+        }
+      )
+    }
     const { serverId, memberId } = await params
     if (!serverId || !memberId) {
       return new NextResponse(
@@ -33,18 +45,7 @@ export async function PATCH(
         }
       )
     }
-    const profile = await currentProfile()
-    if (!profile) {
-      return new NextResponse(
-        JSON.stringify({
-          message:
-            '[SERVER_MEMBER_ID_PATCH] You need to be logged in to update a member role',
-        }),
-        {
-          status: 401,
-        }
-      )
-    }
+   
     
     const { role } = await req.json()
     if (!role) {
@@ -72,9 +73,12 @@ export async function PATCH(
           update: {
             where: {
               id: memberId,
+              profileId:{
+                not: profile.id
+              }
             },
             data: {
-              role: role,
+              role,
             },
           },
         },
