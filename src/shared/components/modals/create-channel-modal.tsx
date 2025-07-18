@@ -35,11 +35,14 @@ export function CreateChannelModal() {
         </DialogHeader>
         <div className="m-4  flex flex-col items-start gap-2">
           <Label className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
-            SERVER INVITE LINK
+            Create text chat:
           </Label>
-          
-         
-          
+          <Label className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+            Create voice chat:
+          </Label>
+          <Label className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+            Create video chat:
+          </Label>
         </div>
       </DialogContent>
     </Dialog>
