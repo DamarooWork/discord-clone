@@ -22,7 +22,8 @@ export async function PATCH(
     if (!serverId || !memberId) {
       return new NextResponse(
         JSON.stringify({
-          message: '[SERVER_MEMBER_ID_PATCH] Server id and member id is required',
+          message:
+            '[SERVER_MEMBER_ID_PATCH] Server id and member id is required',
         }),
         {
           status: 400,
@@ -45,8 +46,7 @@ export async function PATCH(
         }
       )
     }
-   
-    
+
     const { role } = await req.json()
     if (!role) {
       return new NextResponse(
@@ -73,9 +73,9 @@ export async function PATCH(
           update: {
             where: {
               id: memberId,
-              profileId:{
-                not: profile.id
-              }
+              profileId: {
+                not: profile.id,
+              },
             },
             data: {
               role,
@@ -83,7 +83,7 @@ export async function PATCH(
           },
         },
       },
-      include:{
+      include: {
         members: {
           include: {
             profile: true,
@@ -92,18 +92,25 @@ export async function PATCH(
             role: 'asc',
           },
         },
-      }
+      },
     })
     if (!server) {
-      return new NextResponse(JSON.stringify({ message: '[SERVER_MEMBER_ID_PATCH] Server not found' }), {
-        status: 404,
-      })
+      return new NextResponse(
+        JSON.stringify({
+          message: '[SERVER_MEMBER_ID_PATCH] Server not found',
+        }),
+        {
+          status: 404,
+        }
+      )
     }
-    return NextResponse.json(server, {status: 200})
+    return NextResponse.json(server, { status: 200 })
   } catch (e) {
     console.log(e)
     return new NextResponse(
-      JSON.stringify({ message: '[SERVER_MEMBER_ID_PATCH] Something went wrong' }),
+      JSON.stringify({
+        message: '[SERVER_MEMBER_ID_PATCH] Something went wrong',
+      }),
       {
         status: 500,
       }
@@ -119,7 +126,8 @@ export async function DELETE(
     if (!serverId || !memberId) {
       return new NextResponse(
         JSON.stringify({
-          message: '[SERVER_MEMBER_ID_DETELE] Server id and member id is required',
+          message:
+            '[SERVER_MEMBER_ID_DETELE] Server id or member id is required',
         }),
         {
           status: 400,
@@ -142,19 +150,22 @@ export async function DELETE(
       where: {
         id: memberId,
         serverId: serverId,
+        profileId: {
+          not: profile.id,
+        },
       },
     })
     const server = await prisma.server.findUnique({
       where: {
         id: serverId,
         profileId: profile.id,
-        members:{
-          none:{
+        members: {
+          none: {
             id: memberId,
-          }
-        }
+          },
+        },
       },
-      include:{
+      include: {
         members: {
           include: {
             profile: true,
@@ -163,18 +174,25 @@ export async function DELETE(
             role: 'asc',
           },
         },
-      }
+      },
     })
     if (!server) {
-      return new NextResponse(JSON.stringify({ message: '[SERVER_MEMBER_ID_DETELE] Server not found' }), {
-        status: 404,
-      })
+      return new NextResponse(
+        JSON.stringify({
+          message: '[SERVER_MEMBER_ID_DETELE] Server not found',
+        }),
+        {
+          status: 404,
+        }
+      )
     }
-    return NextResponse.json(server, {status: 200})
+    return NextResponse.json(server, { status: 200 })
   } catch (e) {
     console.log(e)
     return new NextResponse(
-      JSON.stringify({ message: '[SERVER_MEMBER_ID_DETELE] Something went wrong' }),
+      JSON.stringify({
+        message: '[SERVER_MEMBER_ID_DETELE] Something went wrong',
+      }),
       {
         status: 500,
       }

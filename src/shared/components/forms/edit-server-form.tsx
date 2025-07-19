@@ -16,12 +16,10 @@ import z from 'zod'
 import { cn } from '@/shared/lib/utils/cn'
 import { FileUploader } from '@/widgets'
 import { toast } from 'sonner'
-import { useRouter } from '@/i18n/navigation'
 import axios from 'axios'
 import { useModalStore } from '@/shared/store'
 import { actionRevalidatePath } from '@/shared/lib/actions'
 import { Server } from '@prisma/client'
-import { useEffect, useState } from 'react'
 
 interface Props {
   className?: string
@@ -29,7 +27,6 @@ interface Props {
   server?: Server
 }
 export function EditServerForm({ className, children, server }: Props) {
-  const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateServerSchema),
     defaultValues: {
@@ -71,7 +68,7 @@ export function EditServerForm({ className, children, server }: Props) {
           name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+              <FormLabel>
                 Server image
               </FormLabel>
               <FormControl>
@@ -91,7 +88,7 @@ export function EditServerForm({ className, children, server }: Props) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+              <FormLabel>
                 Server name
               </FormLabel>
               <FormControl>

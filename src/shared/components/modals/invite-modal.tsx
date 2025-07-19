@@ -96,7 +96,7 @@ export function InviteModal() {
               />
             )}
           </div>
-          <Label className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70 mt-2">
+          <Label className='uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70'>
             New link
           </Label>
           <Button

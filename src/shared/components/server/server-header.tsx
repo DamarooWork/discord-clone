@@ -71,7 +71,10 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
           </DropdownMenuItem>
         )}
         {isModerator && (
-          <DropdownMenuItem  onClick={() => onOpen(ModalType.CREATE_CHANNEL, { server })} className=" flex justify-between items-center px-3 py-2 text-sm">
+          <DropdownMenuItem
+            onClick={() => onOpen(ModalType.CREATE_CHANNEL, { server })}
+            className=" flex justify-between items-center px-3 py-2 text-sm"
+          >
             Create Channel
             <span className="sr-only">Create Channel</span>
             <PlusCircle className="size-4 min-w-4 min-h-4" />
@@ -80,6 +83,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
         {isModerator && <DropdownMenuSeparator />}
         {isAdmin && (
           <DropdownMenuItem
+            onClick={() => onOpen(ModalType.DELETE_CHANNEL, { server })}
             variant="destructive"
             className="text-destructive flex justify-between items-center  px-3 py-2 text-sm"
           >

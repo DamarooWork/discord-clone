@@ -1,4 +1,4 @@
-import { CreateChannelModal, CreateServerModal, EditServerModal, InviteModal, MembersModal } from '@/shared/components/modals'
+import { CreateChannelModal, CreateServerModal, DeleteServerModal, EditServerModal, InviteModal, MembersModal } from '@/shared/components/modals'
 
 export function ModalsProvider() {
   return (
@@ -8,6 +8,7 @@ export function ModalsProvider() {
       <EditServerModal />
       <MembersModal/>
       <CreateChannelModal/>
+      <DeleteServerModal/>
     </>
   )
 }

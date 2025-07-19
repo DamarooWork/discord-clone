@@ -63,7 +63,7 @@ const {onClose} = useModalStore()
           name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+              <FormLabel>
                 Server image
               </FormLabel>
               <FormControl>
@@ -83,7 +83,7 @@ const {onClose} = useModalStore()
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+              <FormLabel>
                 Server name
               </FormLabel>
               <FormControl>

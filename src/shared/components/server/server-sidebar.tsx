@@ -63,9 +63,13 @@ export async function ServerSidebar({ serverId }: ServerSidebarProps) {
   )?.role
   return (
     <section className="hidden fixed md:flex md:ml-18 h-full w-60 z-20 flex-col inset-0">
-      <div className='flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]'>
+      <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
         <ServerHeader server={server} role={role} />
-
+        <section className="p-3">
+          {server.channels.map((server) => (
+            <div key={server.id}>{server.name}</div>
+          ))}
+        </section>
       </div>
     </section>
   )

@@ -1,2 +1,3 @@
 export { CreateServerForm } from './create-server-form'
 export { EditServerForm } from './edit-server-form'
+export { CreateChannelForm } from './create-channel-form'

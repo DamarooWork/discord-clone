@@ -18,7 +18,7 @@ import {
   ScrollArea,
 } from '@/shared/ui'
 import { useModalStore, ModalType } from '@/shared/store'
-import { act, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 import axios from 'axios'
 import {
@@ -26,19 +26,16 @@ import {
   Loader2,
   MoreVertical,
   Shield,
-  ShieldAlert,
   ShieldCheck,
   ShieldQuestion,
   UserMinus,
 } from 'lucide-react'
 import { UserAvatar } from '@/shared/components'
-import {  MemberRole } from '@prisma/client'
+import { MemberRole } from '@prisma/client'
 import { RoleIcon } from '@/widgets'
 
-
-
 export function MembersModal() {
-  const { onOpen,isOpen, onClose, type, data } = useModalStore()
+  const { onOpen, isOpen, onClose, type, data } = useModalStore()
   const [loadingId, setLoadingId] = useState<string>('')
 
   const isModalOpen = isOpen && type === ModalType.MEMBERS
@@ -46,9 +43,12 @@ export function MembersModal() {
   const handleUpdateRole = async (memberId: string, role: MemberRole) => {
     try {
       setLoadingId(memberId)
-      const response= await axios.patch(`/api/servers/${server?.id}/members/${memberId}`, {
-        role,
-      })
+      const response = await axios.patch(
+        `/api/servers/${server?.id}/members/${memberId}`,
+        {
+          role,
+        }
+      )
       onOpen(ModalType.MEMBERS, { server: response.data })
       toast.success('Member role updated!')
     } catch (e) {
@@ -61,7 +61,9 @@ export function MembersModal() {
   const handleDeleteMember = async (memberId: string) => {
     try {
       setLoadingId(memberId)
-      const response = await axios.delete(`/api/servers/${server?.id}/members/${memberId}`)
+      const response = await axios.delete(
+        `/api/servers/${server?.id}/members/${memberId}`
+      )
       onOpen(ModalType.MEMBERS, { server: response.data })
       toast.success('Member is kicked!')
     } catch (e) {
@@ -71,10 +73,13 @@ export function MembersModal() {
       setLoadingId('')
     }
   }
- 
+
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent onOpenAutoFocus={(e)=>e.preventDefault()} className="bg-foreground text-background p-0 overflow-hidden">
+      <DialogContent
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="bg-foreground text-background p-0 overflow-hidden"
+      >
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Manage Members
@@ -115,7 +120,10 @@ export function MembersModal() {
                               <DropdownMenuSubContent>
                                 <DropdownMenuItem
                                   onClick={() =>
-                                    handleUpdateRole(member.id, MemberRole.GUEST)
+                                    handleUpdateRole(
+                                      member.id,
+                                      MemberRole.GUEST
+                                    )
                                   }
                                   className="hover:bg-main"
                                 >
