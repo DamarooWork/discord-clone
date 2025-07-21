@@ -44,7 +44,10 @@ export function CreateChannelForm({ className, children, serverId }: Props) {
   const isLoading = form.formState.isSubmitting
   const onSubmit = async (values: z.infer<typeof CreateChannelSchema>) => {
     try {
-      const server = await axios.post(`/api/servers/${serverId}/channels`, values)
+      const server = await axios.post(
+        `/api/servers/${serverId}/channels`,
+        values
+      )
       toast.success('The channel was created!')
       form.reset()
       router.refresh()
@@ -96,15 +99,11 @@ export function CreateChannelForm({ className, children, serverId }: Props) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={ChannelType.TEXT}>
-                    {ChannelType.TEXT}
-                  </SelectItem>
-                  <SelectItem value={ChannelType.VOICE}>
-                    {ChannelType.VOICE}
-                  </SelectItem>
-                  <SelectItem value={ChannelType.VIDEO}>
-                    {ChannelType.VIDEO}
-                  </SelectItem>
+                  {Object.values(ChannelType).map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

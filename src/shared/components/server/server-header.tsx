@@ -94,6 +94,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
         )}
         {!isAdmin && (
           <DropdownMenuItem
+            onClick={() => onOpen(ModalType.LEAVE_SERVER, { server })}
             variant="destructive"
             className="text-destructive flex justify-between items-center px-3 py-2 text-sm"
           >

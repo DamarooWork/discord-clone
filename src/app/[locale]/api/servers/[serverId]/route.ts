@@ -45,3 +45,43 @@ export async function PATCH(
     })
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { serverId: string } }
+) {
+  try {
+    const profile = await currentProfile()
+    if (!profile) {
+      return new NextResponse('[SERVER_ID_DELETE] Unauthorized', {
+        status: 401,
+      })
+    }
+    const {serverId} = await params
+    if (!serverId) {
+      return new NextResponse('[SERVER_ID_DELETE] Invalid server id', {
+        status: 400,
+      })
+    }
+    const server = await prisma.server.delete({
+      where: {
+        id: serverId,
+        profileId: profile.id,
+      },
+    })
+    if (!server) {
+      return new NextResponse(
+        '[SERVER_ID_DELETE] Server not found or you are not an admin',
+        {
+          status: 404,
+        }
+      )
+    }
+    return NextResponse.json(server, { status: 200 })
+  } catch (e) {
+    console.log('[SERVER_ID_DELETE]', e)
+    return new NextResponse(JSON.stringify(e), {
+      status: 500,
+    })
+  }
+}
