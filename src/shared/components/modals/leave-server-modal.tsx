@@ -40,7 +40,7 @@ export function LeaveServerModal() {
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="bg-foreground text-background p-0 overflow-hidden px-6"
+        className="p-0 overflow-hidden px-6"
       >
         <DialogHeader className="pt-8 ">
           <DialogTitle className="text-2xl text-center font-bold ">

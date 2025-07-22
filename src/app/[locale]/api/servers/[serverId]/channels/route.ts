@@ -33,9 +33,9 @@ export async function POST(
         }
       )
     }
-    if (name === 'general') {
+    if (name === 'General') {
       return NextResponse.json(
-        { message: '[SERVER_ID_CHANNELS] Channel name cannot be general' },
+        { message: '[SERVER_ID_CHANNELS] Channel name cannot be "General"' },
         {
           status: 400,
         }

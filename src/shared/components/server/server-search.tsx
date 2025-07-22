@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from '@/i18n/navigation'
-import { SearchVariants } from '@/shared/types'
+import { SectionType } from '@/shared/types'
 import {
   CommandDialog,
   CommandInput,
@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react'
 interface ServerSearchProps {
   data: {
     label: string
-    type: SearchVariants
+    type: SectionType
     data: { icon: React.ReactNode; name: string; id: string }[] | undefined
   }[]
 }
@@ -34,17 +34,17 @@ export function ServerSearch({ data,  }: ServerSearchProps) {
     addEventListener('keydown', handleKeyDown)
     return () => removeEventListener('keydown', handleKeyDown)
   }, [])
-  const handleCommandSelect = (id: string, type: SearchVariants) => {
+  const handleCommandSelect = (id: string, type: SectionType) => {
     setOpen(false)
-    if (type === 'channel') {
+    if (type === 'channels') {
       router.push(`/servers/${params.serverId}/channels/${id}`)
     }
-    if (type === 'member') {
+    if (type === 'members') {
       router.push(`/servers/${params.serverId}/conversations/${id}`)
     }
   }
   return (
-    <>
+    <section className='p-3'>
       <button
         onClick={() => setOpen((open) => !open)}
         className="group p-2 rounded-md flex items-center gap-x-2 w-full hover:bg-main active:bg-main/80 transition ease-in-out cursor-pointer text-zinc-700 dark:text-zinc-400 "
@@ -76,6 +76,6 @@ export function ServerSearch({ data,  }: ServerSearchProps) {
           })}
         </CommandList>
       </CommandDialog>
-    </>
+    </section>
   )
 }

@@ -25,13 +25,14 @@ import { useModalStore } from '@/shared/store'
 import { actionRevalidatePath } from '@/shared/lib/actions'
 import { CreateChannelSchema } from './create-channel-schema'
 import { ChannelType } from '@prisma/client'
+import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 
 interface Props {
   className?: string
   children?: React.ReactNode
-  serverId?: string
+  server: ServerWithMembersWithProfilesAndChannelsWithProfiles
 }
-export function CreateChannelForm({ className, children, serverId }: Props) {
+export function CreateChannelForm({ className, children, server }: Props) {
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateChannelSchema),
@@ -44,10 +45,13 @@ export function CreateChannelForm({ className, children, serverId }: Props) {
   const isLoading = form.formState.isSubmitting
   const onSubmit = async (values: z.infer<typeof CreateChannelSchema>) => {
     try {
-      const server = await axios.post(
-        `/api/servers/${serverId}/channels`,
-        values
-      )
+      if (server.channels.find((channel) => channel.name === values.name)) {
+        form.setError('name', {
+          message: 'A channel with this name already exists!',
+        })
+        return
+      }
+      await axios.post(`/api/servers/${server.id}/channels`, values)
       toast.success('The channel was created!')
       form.reset()
       router.refresh()

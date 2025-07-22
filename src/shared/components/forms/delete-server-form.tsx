@@ -87,7 +87,6 @@ export function DeleteServerForm({ className, children, server }: Props) {
             variant="destructive"
             type="submit"
             disabled={isLoading}
-            className="w-full"
           >
             Delete
           </Button>

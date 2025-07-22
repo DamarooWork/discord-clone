@@ -17,13 +17,13 @@ export function DeleteServerModal() {
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="bg-foreground text-background p-0 overflow-hidden px-6"
+        className="p-0 overflow-hidden px-6"
       >
         <DialogHeader className="pt-8 ">
           <DialogTitle className="text-2xl text-center font-bold">
             Delete Server
           </DialogTitle>
-          <DialogDescription className="text-center text-primary-foreground text-md">
+          <DialogDescription className="text-center text-foreground text-md">
             Are you sure you want to delete{' '}
             <span className="font-bold text-main">{data.server?.name}</span>?
             <br />

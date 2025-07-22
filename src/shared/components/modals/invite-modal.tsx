@@ -58,17 +58,20 @@ export function InviteModal() {
   }
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent onOpenAutoFocus={(e)=>e.preventDefault()} className="bg-foreground text-background p-0 overflow-hidden">
+      <DialogContent
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="p-0 overflow-hidden"
+      >
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Here your invite link!
           </DialogTitle>
-          <DialogDescription className="text-center text-primary-foreground text-md">
+          <DialogDescription className="text-center text-md">
             You can invite people with this link!
           </DialogDescription>
         </DialogHeader>
         <div className="m-4  flex flex-col items-start gap-2">
-          <Label className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+          <Label className="uppercase text-xs font-bold text-foreground ">
             SERVER INVITE LINK
           </Label>
           <div className="relative w-full">
@@ -96,7 +99,7 @@ export function InviteModal() {
               />
             )}
           </div>
-          <Label className='uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70'>
+          <Label className="uppercase text-xs font-bold text-foreground mt-4">
             New link
           </Label>
           <Button

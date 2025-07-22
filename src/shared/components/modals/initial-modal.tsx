@@ -10,12 +10,12 @@ import { CreateServerForm } from '@/shared/components/forms'
 export function InitialModal() {
   return (
     <Dialog open>
-      <DialogContent className="bg-foreground text-background p-0  overflow-hidden">
+      <DialogContent className="p-0  overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Customize your server
           </DialogTitle>
-          <DialogDescription className="text-center text-primary-foreground text-md">
+          <DialogDescription className="text-center text-foreground text-md">
             Give your server a personality with a custom name and avatar. You
             can always change it later.
           </DialogDescription>

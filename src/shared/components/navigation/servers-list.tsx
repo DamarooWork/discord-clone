@@ -9,7 +9,7 @@ interface Props {
 }
 export function ServersList({ className, servers }: Props) {
   return (
-    <ScrollArea className="flex-1 w-full ">
+    <ScrollArea className="flex-1 w-full">
       <ul className="flex flex-col gap-3 items-center relative ">
         {servers.map((server) => (
           <ServerItem server={server} key={server.id} />

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { ServerWithMembersWithProfiles } from '../types'
+import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 
 export const ModalType = {
   CREATE_SERVER: 'createServer',
@@ -10,10 +10,10 @@ export const ModalType = {
   DELETE_CHANNEL: 'deleteChannel',
   LEAVE_SERVER: 'leaveServer',
 } as const
-export type ModalType = typeof ModalType[keyof typeof ModalType]
+export type ModalType = (typeof ModalType)[keyof typeof ModalType]
 
 interface ModalData {
-  server?: ServerWithMembersWithProfiles
+  server?: ServerWithMembersWithProfilesAndChannelsWithProfiles
 }
 interface ModalStore {
   type: ModalType | null
@@ -26,6 +26,6 @@ export const useModalStore = create<ModalStore>((set) => ({
   type: null,
   data: {},
   isOpen: false,
-  onOpen: (type, data={}) => set({ type, isOpen: true, data }),
+  onOpen: (type, data = {}) => set({ type, isOpen: true, data }),
   onClose: () => set({ type: null, isOpen: false }),
 }))

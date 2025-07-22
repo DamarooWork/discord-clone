@@ -17,17 +17,17 @@ export function CreateChannelModal() {
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="bg-foreground text-background p-0 overflow-hidden"
+        className="p-0 overflow-hidden"
       >
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Create a new channel
           </DialogTitle>
-          <DialogDescription className="text-center text-primary-foreground text-md">
+          <DialogDescription className="text-center text-foreground text-md">
             Here you can create a text, voice or video channel
           </DialogDescription >
         </DialogHeader>
-        <CreateChannelForm serverId={data.server?.id} />
+        {data.server && <CreateChannelForm server={data.server} />}
       </DialogContent>
     </Dialog>
   )

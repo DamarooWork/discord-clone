@@ -78,18 +78,18 @@ export function MembersModal() {
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="bg-foreground text-background p-0 overflow-hidden"
+        className="p-0 overflow-hidden"
       >
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Manage Members
           </DialogTitle>
-          <DialogDescription className="text-center text-primary-foreground text-md">
+          <DialogDescription className="text-center text-foreground text-md">
             {server?.members?.length} Members
           </DialogDescription>
         </DialogHeader>
         <div className="m-4  flex flex-col items-start gap-2">
-          <Label className="uppercase text-xs font-bold text-primary-foreground dark:text-secondary/70">
+          <Label className="uppercase text-xs font-bold text-foreground">
             MEMBERS:
           </Label>
           <ScrollArea className="w-full max-h-80">

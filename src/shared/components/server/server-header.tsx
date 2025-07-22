@@ -1,7 +1,7 @@
 'use client'
 
 import { ModalType, useModalStore } from '@/shared/store'
-import { ServerWithMembersWithProfiles } from '@/shared/types'
+import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,7 @@ import {
 } from 'lucide-react'
 
 interface ServerHeaderProps {
-  server: ServerWithMembersWithProfiles
+  server: ServerWithMembersWithProfilesAndChannelsWithProfiles
   role?: MemberRole
 }
 export function ServerHeader({ server, role }: ServerHeaderProps) {
@@ -33,8 +33,8 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>
-        <button className="w-full font-semibold flex items-center justify-between px-3 h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-neutral-300/50 dark:hover:bg-neutral-700/50 transition-all ease-in-out cursor-pointer rounded-b-md shadow-xl ">
-          <p className="truncate">{server.name}</p>
+        <button className="w-full font-semibold flex items-center justify-between px-3 min-h-12 h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-neutral-300/50 dark:hover:bg-neutral-700/50 transition-all ease-in-out cursor-pointer rounded-b-md shadow-xl ">
+          <h1 className="truncate">{server.name}</h1>
           <ChevronDown className="size-5 min-w-5 min-h-5" />
           <span className="sr-only">Server with name {server.name}</span>
         </button>

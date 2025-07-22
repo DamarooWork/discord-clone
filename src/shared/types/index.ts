@@ -1,2 +1,2 @@
- export type { ServerWithMembersWithProfiles, ServerWithChannelsWithProfiles, ServerWithMembersWithProfilesAndChannelsWithProfiles } from './server'
- export type { SearchVariants } from './search'
+ export type * from './server'
+ export type { SectionType } from './section-type'
