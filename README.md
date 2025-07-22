@@ -12,14 +12,15 @@ Delete & Edit messages in real time for all users
 Create Text, Audio and Video call Channels
 1:1 conversation between members
 1:1 video calls between members
-Member management (Kick, Role change Guest / Moderator)
+Member management (Kick, Role change Guest / Moderator / Admin)
 Unique invite link generation & full working invite system
 Infinite loading for messages in batches of 10 (@tanstack/query)
 Server creation and customization
 Beautiful UI using TailwindCSS and ShadcnUI
 Full responsivity and mobile UI
 Light / Dark mode
+Language selection
 Websocket fallback: Polling with alerts
 ORM using Prisma
-MySQL database using Planetscale
+Postgresql database using VerselDB
 Authentication with Clerk
