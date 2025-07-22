@@ -1,0 +1,1 @@
+export type SearchVariants = 'channel' | 'member'

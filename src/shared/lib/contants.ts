@@ -5,3 +5,4 @@ export const LOCALES_NAMES = [
   { locale: 'ja', name: '日本語' },
   { locale: 'ko', name: '한국어' },
 ]
+

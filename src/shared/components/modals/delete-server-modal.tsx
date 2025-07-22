@@ -21,10 +21,14 @@ export function DeleteServerModal() {
       >
         <DialogHeader className="pt-8 ">
           <DialogTitle className="text-2xl text-center font-bold">
-            Are you sure you want to delete this server?
+            Delete Server
           </DialogTitle>
           <DialogDescription className="text-center text-primary-foreground text-md">
-            Type <span className="font-bold">{data.server?.name}</span> to
+            Are you sure you want to delete{' '}
+            <span className="font-bold text-main">{data.server?.name}</span>?
+            <br />
+            Type{' '}
+            <span className="font-bold text-main">{data.server?.name}</span> to
             confirm
           </DialogDescription>
         </DialogHeader>
