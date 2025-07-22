@@ -1,6 +1,6 @@
-# Fullstack Discord Clone
+# Fullstack Discord Clone ( in progress... )
 
-## This is a full stack Discord clone built with Next.js, React, Socket.io, Prisma, Planetscale, Clerk, TailwindCSS, and ShadcnUI.
+## This is a full stack Discord clone built with Next.js, React, Socket.io, Prisma, VerselDB, Clerk, TailwindCSS, and ShadcnUI.
 
 It is a fully functional clone of the popular Discord app with a modern UI and a sleek design. It is built using the latest technologies and best practices, making it a great choice for developers looking to create a high-quality Discord clone.
 
@@ -19,7 +19,7 @@ Server creation and customization
 Beautiful UI using TailwindCSS and ShadcnUI
 Full responsivity and mobile UI
 Light / Dark mode
-Websocket fallback: Polling with alerts 
+Websocket fallback: Polling with alerts
 ORM using Prisma
 MySQL database using Planetscale
 Authentication with Clerk
