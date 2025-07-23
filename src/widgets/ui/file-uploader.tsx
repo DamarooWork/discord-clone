@@ -19,7 +19,7 @@ interface Props {
  
  
 export function FileUploader({ className, endpoint, value, onChange, isLoading=false }: Props) {
- const buttonClass = `group relative flex justify-center items-center h-10 w-32 cursor-pointer mt-2 overflow-hidden rounded-md text-foreground  after:transition-[width] after:duration-500 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 disabled:pointer-events-none data-[state=disabled]:cursor-not-allowed data-[state=readying]:cursor-not-allowed data-[state=disabled]:bg-indigo-400 data-[state=ready]:bg-main bg-transparent outline-none border-[1px] border-indigo-300 rounded-lg p-2 data-[state=readying]:bg-indigo-800 data-[state=uploading]:bg-indigo-400 after:absolute after:left-0 after:h-full after:w-[var(--progress-width)] after:content-[''] data-[state=uploading]:after:bg-indigo-600`
+ const buttonClass = `group relative flex justify-center items-center h-10 w-32 cursor-pointer mt-2 overflow-hidden rounded-md text-background dark:text-foreground  after:transition-[width] after:duration-500 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 disabled:pointer-events-none data-[state=disabled]:cursor-not-allowed data-[state=readying]:cursor-not-allowed data-[state=disabled]:bg-indigo-400 data-[state=ready]:bg-main bg-transparent outline-none border-[1px] border-indigo-300 rounded-lg p-2 data-[state=readying]:bg-indigo-800 data-[state=uploading]:bg-indigo-400 after:absolute after:left-0 after:h-full after:w-[var(--progress-width)] after:content-[''] data-[state=uploading]:after:bg-indigo-600`
   const [isImageLoaded, setImageLoaded] = useState(false)
   const fileType = value?.split('.').pop()
   const onLoadingComplete = () => {
@@ -77,11 +77,11 @@ export function FileUploader({ className, endpoint, value, onChange, isLoading=f
         className={'cursor-pointer'}
         appearance={
           {
-            container: 'group/dropzone',
+            container: 'group/dropzone border-foreground',
             button: buttonClass,
-            allowedContent: 'text-main',
-            label: 'mt-0 text-main group-hover/dropzone:underline hover:text-main',
-            uploadIcon: 'text-main',
+            allowedContent: 'text-foreground',
+            label: 'mt-0 text-foreground group-hover/dropzone:underline hover:text-foreground',
+            uploadIcon: 'text-foreground',
           }
         }
         endpoint={endpoint}

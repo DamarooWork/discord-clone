@@ -11,7 +11,7 @@ import { DeleteServerForm } from '../forms/delete-server-form'
 
 export function DeleteServerModal() {
   const { isOpen, onClose, type, data } = useModalStore()
-  const isModalOpen = isOpen && type === ModalType.DELETE_CHANNEL
+  const isModalOpen = isOpen && type === ModalType.DELETE_SERVER
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>

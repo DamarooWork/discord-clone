@@ -83,7 +83,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
         {isModerator && <DropdownMenuSeparator />}
         {isAdmin && (
           <DropdownMenuItem
-            onClick={() => onOpen(ModalType.DELETE_CHANNEL, { server })}
+            onClick={() => onOpen(ModalType.DELETE_SERVER, { server })}
             variant="destructive"
             className="text-destructive flex justify-between items-center  px-3 py-2 text-sm"
           >

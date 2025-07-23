@@ -84,13 +84,13 @@ export async function ServerSidebar({ serverId }: ServerSidebarProps) {
         <ServerHeader server={server} role={role} />
         <ServerSearch data={[...channelsData, membersData]} />
         <Separator />
-        <ScrollArea className="flex-1 p-3">
+        <ScrollArea className="flex-1 p-3 max-w-full w-full">
           {Object.values(ChannelType).map((type) => {
             if (
               server.channels.filter((channel) => channel.type === type)?.length
             ) {
               return (
-                <section className="flex flex-col mb-4" key={type}>
+                <section className="flex flex-col w-full max-w-full mb-4" key={type}>
                   <ServerSection
                     label={type + ' Channels'}
                     sectionType="channels"

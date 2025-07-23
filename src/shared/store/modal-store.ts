@@ -7,7 +7,7 @@ export const ModalType = {
   EDIT_SERVER: 'editServer',
   MEMBERS: 'members',
   CREATE_CHANNEL: 'createChannel',
-  DELETE_CHANNEL: 'deleteChannel',
+  DELETE_SERVER: 'deleteServer',
   LEAVE_SERVER: 'leaveServer',
 } as const
 export type ModalType = (typeof ModalType)[keyof typeof ModalType]

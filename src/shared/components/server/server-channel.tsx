@@ -1,8 +1,12 @@
 'use client'
-import { usePathname, useRouter } from '@/i18n/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/shared/lib/utils'
-import { ChannelIcon } from '@/widgets'
+import { ModalType, useModalStore } from '@/shared/store'
+import { ChannelIcon, TooltipWidget } from '@/widgets'
 import { Channel, MemberRole, Server } from '@prisma/client'
+import { on } from 'events'
+import { Edit, Lock, Trash } from 'lucide-react'
+import { useParams } from 'next/navigation'
 
 interface ServerChannelProps {
   channel: Channel
@@ -10,26 +14,64 @@ interface ServerChannelProps {
   role?: MemberRole
 }
 export function ServerChannel({ channel, server, role }: ServerChannelProps) {
-  const params = usePathname()
+  const { onOpen } = useModalStore()
+  const params = useParams()
   const router = useRouter()
-  const handleClick = () => {
-    console.log(channel)
+  const handleChannelClick = () => {
+    alert(channel.id)
+  }
+  const handleEditChannel = (e: React.MouseEvent<SVGElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    // onOpen(ModalType.EDIT_CHANNEL)
+  }
+  const handleDeleteChannel = (e: React.MouseEvent<SVGElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    // onOpen(ModalType.DELETE_CHANNEL)
   }
   return (
     <button
-      onClick={handleClick}
+      onClick={handleChannelClick}
       className={cn(
-        'flex gap-2 items-center group p-2 rounded-md w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition-all ease-in-out cursor-pointer'
+        'flex gap-2 items-center group p-2 rounded-md  hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition-all ease-in-out cursor-pointer',
+        params?.channelId === channel.id && 'bg-zinc-700/20 dark:bg-zinc-700'
       )}
     >
       <ChannelIcon type={channel.type} />
       <p
         className={cn(
-          'line-clamp-1 font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition-all ease-in-out'
+          'line-clamp-1 font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition-all ease-in-out text-start ',
+          params?.channelId === channel.id &&
+            'text-primary dark:text-zinc-200 dark:group-hover:text-white'
         )}
       >
         {channel.name}
       </p>
+      <div className="flex gap-1.5 items-center ml-auto">
+        {channel.name !== 'General' && role !== MemberRole.GUEST && (
+          <TooltipWidget label="Edit">
+            <Edit
+              onClick={handleEditChannel}
+              className="size-4 min-w-4 min-h-4 text-foreground cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-300"
+            />
+          </TooltipWidget>
+        )}
+        {channel.name !== 'General' && role !== MemberRole.GUEST && (
+          <TooltipWidget label="Delete">
+            <Trash
+              onClick={handleDeleteChannel}
+              className="size-4 min-w-4 min-h-4 text-foreground cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-300"
+            />
+          </TooltipWidget>
+        )}
+        {channel.name === 'General' && (
+          <TooltipWidget label="General channel">
+            <Lock
+              className="size-4 min-w-4 min-h-4 text-foreground cursor-default opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-300"
+            />
+          </TooltipWidget>)}
+      </div>
     </button>
   )
 }
