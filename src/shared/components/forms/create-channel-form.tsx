@@ -31,14 +31,15 @@ interface Props {
   className?: string
   children?: React.ReactNode
   server: ServerWithMembersWithProfilesAndChannelsWithProfiles
+  channelType?: ChannelType
 }
-export function CreateChannelForm({ className, children, server }: Props) {
+export function CreateChannelForm({ className, children, server, channelType }: Props) {
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateChannelSchema),
     defaultValues: {
       name: '',
-      type: ChannelType.TEXT,
+      type: channelType || ChannelType.TEXT,
     },
   })
   const { onClose } = useModalStore()
@@ -119,7 +120,6 @@ export function CreateChannelForm({ className, children, server }: Props) {
             variant="primary"
             type="submit"
             disabled={isLoading}
-            className="w-full"
           >
             Create
           </Button>

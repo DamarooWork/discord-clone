@@ -21,12 +21,10 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
     alert(channel.id)
   }
   const handleEditChannel = (e: React.MouseEvent<SVGElement>) => {
-    e.preventDefault()
     e.stopPropagation()
     onOpen(ModalType.EDIT_CHANNEL, { server, channel })
   }
   const handleDeleteChannel = (e: React.MouseEvent<SVGElement>) => {
-    e.preventDefault()
     e.stopPropagation()
     onOpen(ModalType.DELETE_CHANNEL,  { channel })
   }

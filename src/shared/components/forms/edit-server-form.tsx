@@ -108,7 +108,6 @@ export function EditServerForm({ className, children, server }: Props) {
             variant="primary"
             type="submit"
             disabled={isLoading}
-            className="w-full"
           >
             Save
           </Button>

@@ -43,7 +43,7 @@ export function EditChannelForm({
   const form = useForm({
     resolver: zodResolver(EditChannelSchema),
     defaultValues: {
-      name: '',
+      name: channel.name ?? '',
     },
   })
   const { onClose } = useModalStore()
@@ -106,9 +106,8 @@ export function EditChannelForm({
             variant="primary"
             type="submit"
             disabled={isLoading}
-            className="w-full"
           >
-            Edit
+            Save
           </Button>
         </footer>
         {children}

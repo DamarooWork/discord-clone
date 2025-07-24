@@ -73,7 +73,7 @@ export function FileUploader({ className, endpoint, value, onChange, isLoading=f
   return (
     <section className={className}>
       <UploadDropzone
-        config={{ cn: twMerge }}
+        config={{ cn: twMerge, mode: 'auto' }}
         className={'cursor-pointer'}
         appearance={
           {

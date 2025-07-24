@@ -18,6 +18,7 @@ export type ModalType = (typeof ModalType)[keyof typeof ModalType]
 interface ModalData {
   server?: ServerWithMembersWithProfilesAndChannelsWithProfiles
   channel?: Channel
+  channelType?: ChannelType
 }
 
 interface ModalStore {

@@ -76,18 +76,12 @@ export async function DELETE(
         { status: 404 }
       )
     }
-    if (channel.name === 'General') {
-      return NextResponse.json(
-        {
-          message:
-            '[SERVER_ID_CHANNELS_ID_DELETE] Cannot delete General channel',
-        },
-        { status: 400 }
-      )
-    }
     await prisma.channel.delete({
       where: {
         id: channel.id,
+        name:{
+          not: 'General'
+        }
       },
     })
     return NextResponse.json(server, { status: 200 })

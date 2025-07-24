@@ -27,7 +27,7 @@ export function CreateChannelModal() {
             Here you can create a text, voice or video channel
           </DialogDescription >
         </DialogHeader>
-        {data.server && <CreateChannelForm server={data.server} />}
+        {data.server && <CreateChannelForm server={data.server} channelType={data.channelType} />}
       </DialogContent>
     </Dialog>
   )
