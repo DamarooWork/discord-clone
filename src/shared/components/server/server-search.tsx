@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from '@/i18n/navigation'
-import { SectionType } from '@/shared/types'
+import { SectionType, ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 import {
   CommandDialog,
   CommandInput,
@@ -9,21 +9,44 @@ import {
   CommandItem,
   CommandList,
 } from '@/shared/ui'
+import { ChannelIcon, RoleIcon } from '@/widgets'
+import { ChannelType } from '@prisma/client'
 import { Search } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 interface ServerSearchProps {
-  data: {
-    label: string
-    type: SectionType
-    data: { icon: React.ReactNode; name: string; id: string }[] | undefined
-  }[]
+  server: ServerWithMembersWithProfilesAndChannelsWithProfiles
 }
-export function ServerSearch({ data,  }: ServerSearchProps) {
+export function ServerSearch({ server }: ServerSearchProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const params = useParams()
+  
+  const channelsData = Object.values(ChannelType).map((type) => ({
+    label: type + ' Channels',
+    type: 'channels' as SectionType,
+    data: server.channels
+      .filter((channel) => channel.type === type)
+      .map((channel) => ({
+        icon: <ChannelIcon type={channel.type} />,
+        name: channel.name,
+        id: channel.id,
+      })),
+  }))
+
+  const membersData = {
+    label: 'Members',
+    type: 'members' as SectionType,
+    data: server.members.map((member) => ({
+      icon: <RoleIcon role={member.role} />,
+      name: member.profile.name,
+      id: member.profile.id,
+    })),
+  }
+  const data = [...channelsData, membersData]
+
+ 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.ctrlKey || e.metaKey)) {

@@ -1,6 +1,9 @@
 'use client'
 import { ModalType, useModalStore } from '@/shared/store'
-import { SectionType, ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
+import {
+  SectionType,
+  ServerWithMembersWithProfilesAndChannelsWithProfiles,
+} from '@/shared/types'
 import { TooltipWidget } from '@/widgets'
 import { ChannelType, MemberRole } from '@prisma/client'
 import { Plus, Settings } from 'lucide-react'

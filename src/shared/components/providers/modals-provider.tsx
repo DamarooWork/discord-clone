@@ -1,7 +1,9 @@
 import {
   CreateChannelModal,
   CreateServerModal,
+  DeleteChannelModal,
   DeleteServerModal,
+  EditChannelModal,
   EditServerModal,
   InviteModal,
   LeaveServerModal,
@@ -18,6 +20,8 @@ export function ModalsProvider() {
       <CreateChannelModal />
       <DeleteServerModal />
       <LeaveServerModal />
+      <DeleteChannelModal />
+      <EditChannelModal />
     </>
   )
 }

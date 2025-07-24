@@ -11,3 +11,5 @@ export type ServerWithChannelsWithProfiles = Server & {
 export type ServerWithMembersWithProfilesAndChannelsWithProfiles = Server & {
   members: (Member & { profile: Profile })[]
 } & { channels: (Channel & { profile: Profile })[] }
+
+export type MemberWithProfile = Member & { profile: Profile }

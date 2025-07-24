@@ -33,11 +33,11 @@ import {
 import { UserAvatar } from '@/shared/components'
 import { MemberRole } from '@prisma/client'
 import { RoleIcon } from '@/widgets'
+import { actionRevalidatePath } from '@/shared/lib/actions'
 
 export function MembersModal() {
   const { onOpen, isOpen, onClose, type, data } = useModalStore()
   const [loadingId, setLoadingId] = useState<string>('')
-
   const isModalOpen = isOpen && type === ModalType.MEMBERS
   const { server } = data
   const handleUpdateRole = async (memberId: string, role: MemberRole) => {
@@ -51,6 +51,7 @@ export function MembersModal() {
       )
       onOpen(ModalType.MEMBERS, { server: response.data })
       toast.success('Member role updated!')
+      await actionRevalidatePath()
     } catch (e) {
       toast.error('Something went wrong!')
       console.log(e)

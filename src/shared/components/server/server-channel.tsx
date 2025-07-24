@@ -2,15 +2,15 @@
 import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/shared/lib/utils'
 import { ModalType, useModalStore } from '@/shared/store'
+import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 import { ChannelIcon, TooltipWidget } from '@/widgets'
-import { Channel, MemberRole, Server } from '@prisma/client'
-import { on } from 'events'
+import { Channel, MemberRole } from '@prisma/client'
 import { Edit, Lock, Trash } from 'lucide-react'
 import { useParams } from 'next/navigation'
 
 interface ServerChannelProps {
   channel: Channel
-  server: Server
+  server: ServerWithMembersWithProfilesAndChannelsWithProfiles
   role?: MemberRole
 }
 export function ServerChannel({ channel, server, role }: ServerChannelProps) {
@@ -23,12 +23,12 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
   const handleEditChannel = (e: React.MouseEvent<SVGElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    // onOpen(ModalType.EDIT_CHANNEL)
+    onOpen(ModalType.EDIT_CHANNEL, { server, channel })
   }
   const handleDeleteChannel = (e: React.MouseEvent<SVGElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    // onOpen(ModalType.DELETE_CHANNEL)
+    onOpen(ModalType.DELETE_CHANNEL,  { channel })
   }
   return (
     <button
@@ -41,7 +41,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
       <ChannelIcon type={channel.type} />
       <p
         className={cn(
-          'line-clamp-1 font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition-all ease-in-out text-start ',
+          'line-clamp-1 max-w-31 text-ellipsis  font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition-all ease-in-out text-start',
           params?.channelId === channel.id &&
             'text-primary dark:text-zinc-200 dark:group-hover:text-white'
         )}
@@ -61,16 +61,15 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
           <TooltipWidget label="Delete">
             <Trash
               onClick={handleDeleteChannel}
-              className="size-4 min-w-4 min-h-4 text-foreground cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-300"
+              className="size-4 min-w-4 min-h-4 text-foreground cursor-pointer  opacity-0  group-hover:opacity-100  transition-opacity ease-in-out duration-300"
             />
           </TooltipWidget>
         )}
         {channel.name === 'General' && (
           <TooltipWidget label="General channel">
-            <Lock
-              className="size-4 min-w-4 min-h-4 text-foreground cursor-default opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-300"
-            />
-          </TooltipWidget>)}
+            <Lock className="size-4 min-w-4 min-h-4 text-foreground cursor-default opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-300" />
+          </TooltipWidget>
+        )}
       </div>
     </button>
   )
