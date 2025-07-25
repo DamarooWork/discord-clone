@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui'
+import { Avatar, AvatarImage } from '@/shared/ui'
 import { cn } from '../lib/utils'
 
 interface Props {

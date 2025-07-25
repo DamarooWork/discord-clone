@@ -5,16 +5,17 @@ interface Props {
   serverId: string
 }
 export async function ServerPage({ serverId }: Props) {
-
- const server = await prisma.server.findUnique({
+  const generalChannel = await prisma.channel.findFirst({
     where: {
-      id: serverId,
+      serverId,
+      name: 'General',
     },
   })
-  
-  if (!server) {
-    const locale = await getLocale()
-    return redirect({ href: '/', locale })
+  if (generalChannel) {
+    return redirect({
+      href: `/servers/${serverId}/channels/${generalChannel?.id}`,
+      locale: await getLocale(),
+    })
   }
-  return <></>
+  return <> </>
 }

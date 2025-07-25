@@ -1,3 +1,5 @@
 export { HomePage } from './home-page'
 export { ServerPage } from './server-page'
 export { InviteCodePage } from './invite-code-page'
+export { ConversationPage } from './conversation-page'
+export { ChannelPage } from './channel-page'

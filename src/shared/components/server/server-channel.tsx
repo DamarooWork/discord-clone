@@ -18,7 +18,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
   const params = useParams()
   const router = useRouter()
   const handleChannelClick = () => {
-    alert(channel.id)
+    router.push(`/servers/${params.serverId}/channels/${channel.id}`)
   }
   const handleEditChannel = (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation()

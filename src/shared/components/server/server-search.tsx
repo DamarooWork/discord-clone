@@ -59,6 +59,7 @@ export function ServerSearch({ server }: ServerSearchProps) {
   }, [])
   const handleCommandSelect = (id: string, type: SectionType) => {
     setOpen(false)
+   
     if (type === 'channels') {
       router.push(`/servers/${params.serverId}/channels/${id}`)
     }

@@ -8,54 +8,17 @@ import {
   ServerMembers,
   ServerSearch,
 } from '@/shared/components/server'
+import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 
 interface ServerSidebarProps {
-  serverId: string
+  server: ServerWithMembersWithProfilesAndChannelsWithProfiles
+  profileId: string
 }
 
-export async function ServerSidebar({ serverId }: ServerSidebarProps) {
-  const profile = await currentProfile()
-  if (!profile) {
-    return redirect({ href: '/', locale: await getLocale() })
-  }
-
-  const server = await prisma.server.findUnique({
-    where: {
-      id: serverId,
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
-    },
-    include: {
-      members: {
-        include: {
-          profile: true,
-        },
-        orderBy: {
-          role: 'asc',
-        },
-      },
-      channels: {
-        include: {
-          profile: true,
-        },
-        orderBy: {
-          createdAt: 'asc',
-        },
-      },
-    },
-  })
-
-  if (!server) {
-    return redirect({ href: '/', locale: await getLocale() })
-  }
-
+export async function ServerSidebar({ server, profileId }: ServerSidebarProps) {
   const role = server.members.find(
-    (member) => member.profileId === profile.id
+    (member) => member.profileId === profileId
   )?.role
-
  
   return (
     <section className="hidden fixed md:flex md:ml-18 h-full max-h-screen w-60 z-20 flex-col inset-0">
@@ -65,7 +28,7 @@ export async function ServerSidebar({ serverId }: ServerSidebarProps) {
         <Separator />
         <ScrollArea className="flex-1 p-3 max-w-full w-full">
           <ServerChannels server={server} role={role} />
-          <ServerMembers server={server} role={role} profileId={profile.id} />
+          <ServerMembers server={server} role={role} profileId={profileId} />
         </ScrollArea>
       </div>
     </section>

@@ -4,17 +4,11 @@ import { AuthButton, LanguageSelector, ThemeSelector } from '@/widgets'
 import { Separator } from '@/shared/ui'
 import { RedirectToSignIn } from '@clerk/nextjs'
 
-
-interface Props {
-  className?: string
-}
-export async function NavigationSidebar({ className }: Props) {
+export async function NavigationSidebar() {
   const profile = await currentProfile()
-
   if (!profile) {
     return <RedirectToSignIn />
   }
-
   const servers = await prisma.server.findMany({
     where: {
       members: {
@@ -27,7 +21,6 @@ export async function NavigationSidebar({ className }: Props) {
       createdAt: 'desc',
     },
   })
-
   return (
     <aside className="hidden md:flex w-[72px] flex-col z-30 fixed inset-y-0 overflow-hidden h-full border-r">
       <div className="gap-3 py-3 flex flex-col justify-between items-center text-primary dark:bg-[#1E1F22]  h-full w-full">
@@ -36,7 +29,7 @@ export async function NavigationSidebar({ className }: Props) {
         <ServersList servers={servers} />
         <LanguageSelector />
         <ThemeSelector />
-        <AuthButton/>
+        <AuthButton />
       </div>
     </aside>
   )

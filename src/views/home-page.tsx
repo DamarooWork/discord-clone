@@ -5,7 +5,7 @@ import { getLocale, getTranslations } from 'next-intl/server'
 import { UserButton } from '@clerk/nextjs'
 import { initialProfile, prisma } from '@/shared/lib'
 import { redirect } from '@/i18n/navigation'
-import {  InitialModal } from '@/shared/components/modals'
+import { InitialModal } from '@/shared/components/modals'
 
 export async function HomePage() {
   const t = await getTranslations('home')
@@ -21,10 +21,12 @@ export async function HomePage() {
       },
     })
     if (firstServer) {
-      const locale = await getLocale();
-      return redirect({ href: '/servers/' + firstServer.id, locale })
+      return redirect({
+        href: `/servers/${firstServer.id}/`,
+        locale: await getLocale(),
+      })
     } else {
-      return <InitialModal/>
+      return <InitialModal />
     }
   }
   return (
