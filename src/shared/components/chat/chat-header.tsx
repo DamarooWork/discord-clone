@@ -30,7 +30,7 @@ export function ChatHeader({
       {type === 'channel' && (
         <Hash className="size-5 min-w-5 min-h-5 text-zinc-500 dark:text-zinc-400" />
       )}
-      {type === 'conversation' && <UserAvatar imageUrl={imageUrl} />}
+      {type === 'conversation' && <UserAvatar className='size-5 min-h-5 min-w-5 md:size-7 md:min-h-7 md:min-w-7' imageUrl={imageUrl} />}
       <p className="font-semibold ">{name}</p>
     </header>
   )
