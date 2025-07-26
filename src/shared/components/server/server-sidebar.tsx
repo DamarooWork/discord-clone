@@ -1,5 +1,5 @@
 import { redirect } from '@/i18n/navigation'
-import { currentProfile, prisma } from '@/shared/lib'
+import { prisma } from '@/shared/lib'
 import { getLocale } from 'next-intl/server'
 import { ScrollArea, Separator } from '@/shared/ui'
 import {
@@ -8,21 +8,58 @@ import {
   ServerMembers,
   ServerSearch,
 } from '@/shared/components/server'
-import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
+import { cn } from '@/shared/lib/utils'
 
 interface ServerSidebarProps {
-  server: ServerWithMembersWithProfilesAndChannelsWithProfiles
+  serverId: string
   profileId: string
+  sheet?: boolean
 }
 
-export async function ServerSidebar({ server, profileId }: ServerSidebarProps) {
+export async function ServerSidebar({
+  serverId,
+  profileId,
+  sheet = false,
+}: ServerSidebarProps) {
+  const server = await prisma.server.findUnique({
+    where: {
+      id: serverId,
+      members: {
+        some: {
+          profileId,
+        },
+      },
+    },
+    include: {
+      members: {
+        include: {
+          profile: true,
+        },
+        orderBy: {
+          role: 'asc',
+        },
+      },
+      channels: {
+        include: {
+          profile: true,
+        },
+        orderBy: {
+          createdAt: 'asc',
+        },
+      },
+    },
+  })
+
+  if (!server) {
+    return redirect({ href: '/', locale: await getLocale() })
+  }
   const role = server.members.find(
     (member) => member.profileId === profileId
   )?.role
- 
+
   return (
-    <section className="hidden fixed md:flex md:ml-18 h-full max-h-screen w-60 z-20 flex-col inset-0">
-      <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
+    <aside className={cn("fixed ml-18 h-full max-h-screen w-60 z-20 flex-col inset-0", !sheet && 'hidden md:flex ')}>
+      <section className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
         <ServerHeader server={server} role={role} />
         <ServerSearch server={server} />
         <Separator />
@@ -30,7 +67,7 @@ export async function ServerSidebar({ server, profileId }: ServerSidebarProps) {
           <ServerChannels server={server} role={role} />
           <ServerMembers server={server} role={role} profileId={profileId} />
         </ScrollArea>
-      </div>
-    </section>
+      </section>
+    </aside>
   )
 }

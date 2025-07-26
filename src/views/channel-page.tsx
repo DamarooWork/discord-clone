@@ -1,5 +1,5 @@
 import { redirect } from '@/i18n/navigation'
-import { ChatHeader } from '@/shared/components/channel'
+import { ChatHeader } from '@/shared/components/chat'
 import { currentProfile, prisma } from '@/shared/lib'
 import { RedirectToSignIn } from '@clerk/nextjs'
 import { getLocale } from 'next-intl/server'
@@ -40,7 +40,12 @@ export async function ChannelPage({ serverId, channelId }: ChannelPageProps) {
   }
   return (
     <section className=" h-screen flex flex-col">
-      <ChatHeader />
+      <ChatHeader
+        profileId={profile.id}
+        serverId={serverId}
+        name={channel.name}
+        type="channel"
+      />
     </section>
   )
 }

@@ -1,2 +1,2 @@
  export type * from './server'
- export type { SectionType } from './section-type'
+ export type * from './base'

@@ -29,15 +29,5 @@ export async function HomePage() {
       return <InitialModal />
     }
   }
-  return (
-    <Container>
-      <div className="text-4xl font-bold flex flex-col gap-4">
-        {t('discord')}
-        <Button variant="default">Click me</Button>
-        <UserButton />
-        <ThemeSelector />
-        <LanguageSelector />
-      </div>
-    </Container>
-  )
+  
 }

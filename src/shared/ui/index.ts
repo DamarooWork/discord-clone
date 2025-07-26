@@ -12,4 +12,5 @@ export * from './dropdown-menu'
 export * from './tooltip'
 export * from './select'
 export * from './command'
+export * from './sheet'
 
