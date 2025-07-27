@@ -1,9 +1,11 @@
+
 import { ChatType } from '@/shared/types'
-import { MobileToogle } from '@/widgets'
+import { MobileToogle, RoleIcon, SocketIndicator } from '@/widgets'
 import { Hash } from 'lucide-react'
 import { UserAvatar } from '../user-avatar'
 import { NavigationSidebar } from '../navigation'
 import { ServerSidebar } from '../server'
+import { MemberRole } from '@prisma/client'
 
 interface ChatHeaderProps {
   serverId: string
@@ -11,6 +13,7 @@ interface ChatHeaderProps {
   type: ChatType
   imageUrl?: string
   profileId: string
+  role?: MemberRole
 }
 export function ChatHeader({
   serverId,
@@ -18,9 +21,10 @@ export function ChatHeader({
   type,
   imageUrl,
   profileId,
+  role,
 }: ChatHeaderProps) {
   return (
-    <header className="text-md font-semibold px-3 flex gap-2 items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2">
+    <header className="text-md font-semibold px-3 flex gap-2 items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 rounded-b-md shadow-xl">
       <MobileToogle>
         <>
           <NavigationSidebar profileId={profileId} />
@@ -30,8 +34,10 @@ export function ChatHeader({
       {type === 'channel' && (
         <Hash className="size-5 min-w-5 min-h-5 text-zinc-500 dark:text-zinc-400" />
       )}
-      {type === 'conversation' && <UserAvatar className='size-5 min-h-5 min-w-5 md:size-7 md:min-h-7 md:min-w-7' imageUrl={imageUrl} />}
+      {type === 'conversation' && <UserAvatar className='size-8 min-h-8 min-w-8 md:size-8 md:min-h-8 md:min-w-8' imageUrl={imageUrl} />}
       <p className="font-semibold ">{name}</p>
+      {role && <RoleIcon role={role} />}
+     <SocketIndicator className='ml-auto'/>
     </header>
   )
 }

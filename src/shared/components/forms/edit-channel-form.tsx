@@ -10,11 +10,6 @@ import {
   FormMessage,
   Input,
   Button,
-  Select,
-  SelectItem,
-  SelectTrigger,
-  SelectContent,
-  SelectValue,
 } from '@/shared/ui'
 import z from 'zod'
 import { cn } from '@/shared/lib/utils/cn'
@@ -67,7 +62,6 @@ export function EditChannelForm({
         values
       )
       toast.success('The name of the channel was updated!')
-      form.reset()
       router.refresh()
       await actionRevalidatePath()
       onClose()

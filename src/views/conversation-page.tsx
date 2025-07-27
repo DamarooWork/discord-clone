@@ -22,7 +22,7 @@ export async function ConversationPage({ serverId, memberId }: Props) {
       profile: true,
     },
   })
-  if (!currentMember) {
+  if (!currentMember || currentMember.id === memberId) {
     return redirect({
       href: `/`,
       locale: await getLocale(),
@@ -47,6 +47,7 @@ export async function ConversationPage({ serverId, memberId }: Props) {
         name={otherMember.profile.name}
         type="conversation"
         imageUrl={otherMember.profile.imageUrl}
+        role={otherMember.role}
       />
     </section>
   )
