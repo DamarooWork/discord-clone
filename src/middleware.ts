@@ -18,7 +18,7 @@ const isProtectedRoute = createRouteMatcher([
 export default clerkMiddleware(async (auth, req) => {
   if (!isProtectedRoute(req)) await auth.protect()
     
-  if (req.nextUrl.pathname.startsWith('/api/socket/io')) {
+  if (req.nextUrl.pathname.startsWith('/api/socket')) {
     return NextResponse.next()
   }
 

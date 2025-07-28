@@ -9,7 +9,6 @@ interface ChatInputProps {
   type: ChatType
 }
 
-
 export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
-  return <ChatInputForm />
+  return <ChatInputForm apiUrl={apiUrl} query={query} name={name} type={type} />
 }

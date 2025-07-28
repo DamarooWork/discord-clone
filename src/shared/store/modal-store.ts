@@ -12,6 +12,7 @@ export const ModalType = {
   LEAVE_SERVER: 'leaveServer',
   DELETE_CHANNEL: 'deleteChannel',
   EDIT_CHANNEL: 'editChannel',
+  MESSAGE_FILE: 'messageFile',
 } as const
 export type ModalType = (typeof ModalType)[keyof typeof ModalType]
 
@@ -19,6 +20,8 @@ interface ModalData {
   server?: ServerWithMembersWithProfilesAndChannelsWithProfiles
   channel?: Channel
   channelType?: ChannelType
+  apiUrl?: string
+  query?: Record<string, any>
 }
 
 interface ModalStore {

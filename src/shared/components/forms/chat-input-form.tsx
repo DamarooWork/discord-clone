@@ -13,12 +13,23 @@ import {
   Button,
 } from '@/shared/ui'
 import z from 'zod'
+import qs from 'query-string'
 import { cn } from '@/shared/lib/utils'
+import { Plus, Smile } from 'lucide-react'
+import { ChatType } from '@/shared/types'
+import axios from 'axios'
+import { toast } from 'sonner'
+import { ModalType, useModalStore } from '@/shared/store'
 
 interface Props {
   className?: string
+  apiUrl: string
+  query: Record<string, any>
+  name: string
+  type: ChatType
 }
-export function ChatInputForm({ className }: Props) {
+export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
+  const { onOpen } = useModalStore()
   const form = useForm({
     resolver: zodResolver(ChatInputSchema),
     defaultValues: {
@@ -26,42 +37,70 @@ export function ChatInputForm({ className }: Props) {
     },
   })
   const isLoading = form.formState.isSubmitting
-  const onSubmit = async (value: z.infer<typeof ChatInputSchema>) => {
-    console.log(value)
+  const onSubmit = async (values: z.infer<typeof ChatInputSchema>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: apiUrl,
+        query,
+      })
+      const res = await axios.post(url, values)
+      form.reset()
+    } catch (e) {
+      console.log(e)
+      toast.error('Something went wrong!', {
+        position: 'top-right',
+      })
+    }
   }
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn(className, ' px-4 flex flex-col gap-4 relative')}
+        className={cn(className, 'p-3 relative')}
       >
         <FormField
           control={form.control}
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
               <FormControl>
-                <Input
-                className='h-20'
-                  disabled={isLoading}
-                  {...field}
-                  placeholder={'type your message here'}
-                />
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onOpen(ModalType.MESSAGE_FILE, { apiUrl, query })
+                    }}
+                    className="absolute top-3 left-3 h-6 w-6 bg-zinc-500 dark:bg-zinc-400 rounded-full hover:bg-zinc-600 dark:hover:bg-zinc-300 transition-colors p-1 flex items-center justify-center z-10 cursor-pointer"
+                  >
+                    <Plus className="h-4 w-4 text-white dark:text-[#313338]" />
+                  </button>
+                  <Input
+                    className="px-12 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                    disabled={isLoading}
+                    placeholder={`Type ${
+                      type === 'conversation' ? name : '#' + name
+                    } `}
+                    autoComplete="off"
+                    {...field}
+                  />
+                  <button className="absolute top-3 right-3 cursor-pointer">
+                    <Smile />
+                  </button>
+                </div>
               </FormControl>
-              <FormMessage />
+              <FormMessage className="sr-only" />
             </FormItem>
           )}
         />
 
-        <Button
-          className="absolute bottom-2 right-6"
+        {/* <Button
+          className="absolute bottom-4.5 right-4.5"
           variant="primary"
           type="submit"
           disabled={isLoading}
         >
           Send
-        </Button>
+        </Button> */}
       </form>
     </Form>
   )

@@ -8,6 +8,7 @@ import {
   InviteModal,
   LeaveServerModal,
   MembersModal,
+  MessageFileModal,
 } from '@/shared/components/modals'
 
 export function ModalsProvider() {
@@ -22,6 +23,7 @@ export function ModalsProvider() {
       <LeaveServerModal />
       <DeleteChannelModal />
       <EditChannelModal />
+      <MessageFileModal />
     </>
   )
 }
