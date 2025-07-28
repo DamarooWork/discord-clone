@@ -8,18 +8,17 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
-  Button,
 } from '@/shared/ui'
 import z from 'zod'
 import qs from 'query-string'
 import { cn } from '@/shared/lib/utils'
-import { Plus, Smile } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { ChatType } from '@/shared/types'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { ModalType, useModalStore } from '@/shared/store'
+import { EmojiPicker } from '@/shared/components/forms/ui'
 
 interface Props {
   className?: string
@@ -43,7 +42,7 @@ export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
         url: apiUrl,
         query,
       })
-      const res = await axios.post(url, values)
+      await axios.post(url, values)
       form.reset()
     } catch (e) {
       console.log(e)
@@ -51,6 +50,9 @@ export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
         position: 'top-right',
       })
     }
+  }
+  const handleEmojiPick = (emoji: string) => {
+    form.setValue('content', form.getValues('content') + emoji)
   }
   return (
     <Form {...form}>
@@ -83,9 +85,10 @@ export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
                     autoComplete="off"
                     {...field}
                   />
-                  <button className="absolute top-3 right-3 cursor-pointer">
-                    <Smile />
-                  </button>
+                  <EmojiPicker
+                    onChange={handleEmojiPick}
+                    className="absolute top-3 right-3"
+                  />
                 </div>
               </FormControl>
               <FormMessage className="sr-only" />

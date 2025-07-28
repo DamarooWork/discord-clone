@@ -1,5 +1,5 @@
 import { redirect } from '@/i18n/navigation'
-import { ChatHeader, ChatInput } from '@/shared/components/chat'
+import { ChatHeader, ChatInput, ChatMessages } from '@/shared/components/chat'
 import { currentProfile, prisma } from '@/shared/lib'
 import { RedirectToSignIn } from '@clerk/nextjs'
 import { getLocale } from 'next-intl/server'
@@ -46,7 +46,12 @@ export async function ChannelPage({ serverId, channelId }: ChannelPageProps) {
         name={channel.name}
         type="channel"
       />
-      <div className="flex-1">Future Messages</div>
+      <ChatMessages
+        profileId={profile.id}
+        serverId={serverId}
+        type={'channel'}
+        channelId={channel.id}
+      />
       <ChatInput
         name={channel.name}
         type={'channel'}

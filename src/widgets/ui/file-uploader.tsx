@@ -7,7 +7,7 @@ import { ImageLoader } from '@/widgets'
 import React, { useState } from 'react'
 import { actionDeleteUploadThingFile } from '@/shared/lib/actions'
 import { toast } from 'sonner'
-import { Eye, FileIcon, X } from 'lucide-react'
+import { FileIcon, X } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 
 interface Props {
@@ -32,9 +32,6 @@ export function FileUploader({
     setImageLoaded(true)
   }
   const changeImage = async () => {
-    if (!isImageLoaded) {
-      return
-    }
     onChange('')
     if (value) {
       await actionDeleteUploadThingFile(value)
@@ -50,16 +47,27 @@ export function FileUploader({
       <section
         className={cn(className, 'flex justify-center items-center gap-4')}
       >
-        <div className="size-40 relative group/img ring-4 rounded-full ring-main shadow-lg shadow-main">
+        <div
+          className={cn(
+            'size-40 relative group/img ring-4 rounded-full ring-main shadow-lg shadow-main',
+            endpoint === 'messageFile' && 'rounded-md'
+          )}
+        >
           {!isImageLoaded && (
-            <ImageLoader className="size-40 rounded-full absolute inset-0" />
+            <ImageLoader
+              className={cn(
+                'size-40 rounded-full absolute inset-0',
+                endpoint === 'messageFile' && 'rounded-md'
+              )}
+            />
           )}
           <Image
             src={value}
             alt="Uploaded image"
             className={cn(
               'rounded-full object-cover',
-              isImageLoaded && 'opacity-100'
+              isImageLoaded && 'opacity-100',
+              endpoint === 'messageFile' && 'rounded-md'
             )}
             fill
             sizes="160px"
@@ -68,7 +76,10 @@ export function FileUploader({
             onError={onError}
           />
           <Button
-            className="absolute opacity-0 disabled:opacity-0 group-hover/img:opacity-75 inset-0 w-full h-full  rounded-full text-xl will-change-[opacity] transition-all "
+            className={cn(
+              'absolute opacity-0 disabled:opacity-0 group-hover/img:opacity-75 inset-0 w-full h-full  rounded-full text-xl will-change-[opacity] transition-all ',
+              endpoint === 'messageFile' && 'rounded-md'
+            )}
             variant={'primary'}
             onClick={changeImage}
             disabled={isLoading}
@@ -82,7 +93,10 @@ export function FileUploader({
   if (value && pdfName) {
     return (
       <section
-        className={cn(className, 'flex justify-between items-center gap-4 mt-4')}
+        className={cn(
+          className,
+          'flex justify-between items-center gap-4 mt-4'
+        )}
       >
         <FileIcon className="size-12 fill-indigo-200 stroke-indigo-400" />
         <Link
