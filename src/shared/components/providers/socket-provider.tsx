@@ -1,6 +1,5 @@
 'use client'
 import { SocketContextType } from '@/shared/types'
-import { useLocale } from 'next-intl'
 import { useEffect, useState, createContext, useContext } from 'react'
 import { io as ClientIO } from 'socket.io-client'
 interface Props {
@@ -19,7 +18,6 @@ export function useSocket() {
 export function SocketProvider({ children }: Props) {
   const [socket, setSocket] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
-  const locale = useLocale()
   useEffect(() => {
     const socketInstance = new (ClientIO as any)(
       process.env.NEXT_PUBLIC_SITE_URL,

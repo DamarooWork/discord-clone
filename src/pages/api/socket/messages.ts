@@ -1,5 +1,6 @@
 import { currentProfilePages, prisma } from '@/shared/lib'
 import { NextApiResponseServerIo } from '@/shared/types'
+import { MessageFileType } from '@prisma/client'
 import { NextApiRequest } from 'next'
 
 export default async function handler(
@@ -16,7 +17,7 @@ export default async function handler(
     if (!profile) {
       return res.status(401).json({ message: ' [MESSAGES_POST] Unauthorized' })
     }
-    const { content, fileUrl } = req.body
+    const { content, fileUrl, fileType, fileName } = req.body
     const { channelId, serverId } = req.query
     if (!serverId) {
       return res
@@ -68,7 +69,9 @@ export default async function handler(
     )
 
     if (!member) {
-      return res.status(404).json({ message: '[MESSAGES_POST] Member not found' })
+      return res
+        .status(404)
+        .json({ message: '[MESSAGES_POST] Member not found' })
     }
     const message = await prisma.message.create({
       data: {
@@ -76,6 +79,8 @@ export default async function handler(
         channelId: channel.id as string,
         memberId: member.id as string,
         fileUrl,
+        fileType: (fileType as MessageFileType) || null,
+        fileName,
       },
       include: {
         member: {

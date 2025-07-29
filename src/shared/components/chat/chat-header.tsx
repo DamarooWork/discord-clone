@@ -39,7 +39,7 @@ export function ChatHeader({
           imageUrl={imageUrl}
         />
       )}
-      <p className="font-semibold ">{name}</p>
+      <h3 className="font-semibold ">{name}</h3>
       {role && <RoleIcon role={role} />}
       <SocketIndicator className="ml-auto" />
     </header>

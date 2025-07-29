@@ -9,6 +9,7 @@ import { actionDeleteUploadThingFile } from '@/shared/lib/actions'
 import { toast } from 'sonner'
 import { FileIcon, X } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
+import { MessageFileType } from '@prisma/client'
 
 interface Props {
   className?: string
@@ -16,18 +17,23 @@ interface Props {
   value: string
   onChange: (url?: string) => void
   isLoading?: boolean
+  changeFileType?: (fileType: MessageFileType) => void
+  setFileName?: (name: string) => void
+  fileName?: string
 }
-
 export function FileUploader({
   className,
   endpoint,
   value,
   onChange,
   isLoading = false,
+  changeFileType = () => {},
+  setFileName = () => {},
+  fileName = '',
 }: Props) {
   const buttonClass = `group relative flex justify-center items-center h-10 w-32 cursor-pointer mt-2 overflow-hidden rounded-md text-background dark:text-foreground  after:transition-[width] after:duration-500 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 disabled:pointer-events-none data-[state=disabled]:cursor-not-allowed data-[state=readying]:cursor-not-allowed data-[state=disabled]:bg-indigo-400 data-[state=ready]:bg-main bg-transparent outline-none border-[1px] border-indigo-300 rounded-lg p-2 data-[state=readying]:bg-indigo-800 data-[state=uploading]:bg-indigo-400 after:absolute after:left-0 after:h-full after:w-[var(--progress-width)] after:content-[''] data-[state=uploading]:after:bg-indigo-600`
   const [isImageLoaded, setImageLoaded] = useState(false)
-  const [pdfName, setPdfName] = useState('')
+  
   const onLoadingComplete = () => {
     setImageLoaded(true)
   }
@@ -42,7 +48,7 @@ export function FileUploader({
     toast.error(`Упс! ${event.type}`)
     changeImage()
   }
-  if (value && !pdfName) {
+  if (value && !fileName) {
     return (
       <section
         className={cn(className, 'flex justify-center items-center gap-4')}
@@ -90,7 +96,7 @@ export function FileUploader({
       </section>
     )
   }
-  if (value && pdfName) {
+  if (value && fileName) {
     return (
       <section
         className={cn(
@@ -105,7 +111,7 @@ export function FileUploader({
           className="block truncate max-w-[200px] sm:max-w-[320px] "
           rel="noreferrer noopener"
         >
-          {pdfName}
+          {fileName}
         </Link>
         <X
           className="size-12 text-rose-500  cursor-pointer "
@@ -132,9 +138,11 @@ export function FileUploader({
         endpoint={endpoint}
         onClientUploadComplete={(res) => {
           if (res[0].type.endsWith('pdf')) {
-            setPdfName(res[0].name)
+            setFileName(res[0].name)
+            changeFileType('PDF')
           } else {
-            setPdfName('')
+            setFileName('')
+            changeFileType('IMAGE')
           }
           onChange(res[0].ufsUrl)
         }}

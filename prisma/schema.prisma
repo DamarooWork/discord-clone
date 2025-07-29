@@ -51,12 +51,12 @@ model Member {
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   messages               Message[]
-  conversationsInitiated Conversation[] @relation("MemberOne")
-  conversationsReceived  Conversation[] @relation("MemberTwo")
+  conversationsInitiated Conversation[]  @relation("MemberOne")
+  conversationsReceived  Conversation[]  @relation("MemberTwo")
   directMessages         DirectMessage[]
 
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([profileId])
   @@index([serverId])
@@ -95,9 +95,11 @@ enum ChannelType {
 }
 
 model Message {
-  id      String  @id @default(uuid())
-  content String  @db.Text
-  fileUrl String? @db.Text
+  id       String           @id @default(uuid())
+  content  String           @db.Text
+  fileUrl  String?          @db.Text
+  fileType MessageFileType?
+  fileName String?          @db.Text
 
   channelId String
   channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
@@ -114,6 +116,11 @@ model Message {
   @@index([memberId])
 }
 
+enum MessageFileType {
+  PDF
+  IMAGE
+}
+
 model Conversation {
   id String @id @default(uuid())
 
@@ -125,9 +132,8 @@ model Conversation {
 
   DirectMessage DirectMessage[]
 
-
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([memberOneId, memberTwoId])
   @@index([memberOneId])

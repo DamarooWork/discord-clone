@@ -17,11 +17,14 @@ import { toast } from 'sonner'
 import { useRouter } from '@/i18n/navigation'
 import axios from 'axios'
 import { useModalStore } from '@/shared/store'
-import { actionRevalidatePath } from '@/shared/lib/actions'
 import { MessageFileSchema } from './message-file-schema'
+import { useState } from 'react'
+import { MessageFileType } from '@prisma/client'
 
-interface Props {}
-export function MessageFileForm({}: Props) {
+
+export function MessageFileForm() {
+  const [fileType, setFileType] = useState<MessageFileType>('IMAGE')
+  const [fileName, setFileName] = useState('')
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(MessageFileSchema),
@@ -32,15 +35,21 @@ export function MessageFileForm({}: Props) {
   const { onClose, data } = useModalStore()
   const { apiUrl, query } = data
   const isLoading = form.formState.isSubmitting
+  const changeFileType = (fileType: MessageFileType) => {
+    setFileType(fileType)
+  }
   const onSubmit = async (values: z.infer<typeof MessageFileSchema>) => {
     try {
       const url = qs.stringifyUrl({
         url: apiUrl || '',
         query,
       })
+      
       await axios.post(url, {
         ...values,
         content: values.fileUrl,
+        fileType,
+        fileName,
       })
       form.reset()
       router.refresh()
@@ -68,6 +77,9 @@ export function MessageFileForm({}: Props) {
                   value={field.value}
                   isLoading={isLoading}
                   onChange={field.onChange}
+                  changeFileType={changeFileType}
+                  setFileName={setFileName}
+                  fileName={fileName}
                 />
               </FormControl>
               <FormMessage />
