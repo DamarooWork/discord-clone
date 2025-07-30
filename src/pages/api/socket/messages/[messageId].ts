@@ -70,7 +70,7 @@ export default async function handler(
         },
       },
     })
-    if (!message) {
+    if (!message || message.deleted) {
       return res
         .status(404)
         .json({ message: ' [MESSAGES_ID] Message not found' })

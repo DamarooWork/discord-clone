@@ -1,5 +1,5 @@
 import { redirect } from '@/i18n/navigation'
-import { ChatHeader } from '@/shared/components/chat'
+import { ChatHeader, ChatInput, ChatMessages } from '@/shared/components/chat'
 import { currentProfile, getOrCreateConversation, prisma } from '@/shared/lib'
 import { RedirectToSignIn } from '@clerk/nextjs'
 import { getLocale } from 'next-intl/server'
@@ -35,7 +35,7 @@ export async function ConversationPage({ serverId, memberId }: Props) {
       locale: await getLocale(),
     })
   }
-
+  
   const {memberOne, memberTwo} = conversation
   const otherMember = memberOne.id === currentMember.id ? memberTwo : memberOne
 
@@ -48,6 +48,27 @@ export async function ConversationPage({ serverId, memberId }: Props) {
         type="conversation"
         imageUrl={otherMember.profile.imageUrl}
         role={otherMember.role}
+      />
+       <ChatMessages
+        name={otherMember.profile.name}
+        type={'conversation'}
+        member={currentMember}
+        chatId={conversation.id}
+        apiUrl={`/api/direct-messages`}
+        socketUrl={`/api/socket/direct-messages`}
+        socketQuery={{
+          conversationId: conversation.id,
+        }}
+        paramKey={'conversationId'}
+        paramValue={conversation.id}
+      />
+      <ChatInput
+        name={otherMember.profile.name}
+        type={'conversation'}
+        apiUrl={`/api/socket/direct-messages`}
+        query={{
+          conversationId: conversation.id,
+        }}
       />
     </section>
   )

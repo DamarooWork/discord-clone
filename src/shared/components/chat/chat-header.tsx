@@ -23,7 +23,7 @@ export function ChatHeader({
   role,
 }: ChatHeaderProps) {
   return (
-    <header className="text-md font-semibold px-3 flex gap-2 items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 rounded-b-md shadow-xl">
+    <header className="text-md font-semibold px-3 flex gap-2 items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 rounded-b-md shadow-xl w-full max-w-full">
       <MobileToogle>
         <div className="flex">
           <NavigationSidebar profileId={profileId} />

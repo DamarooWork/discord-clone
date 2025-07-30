@@ -89,7 +89,7 @@ export function ChatMessages({
   return (
     <section
       ref={chatRef}
-      className={'flex-1 flex flex-col py-4 overflow-y-auto'}
+      className={'flex-1 flex flex-col py-4 overflow-y-auto overflow-x-hidden'}
     >
       {!hasNextPage && <div className="flex-1" />}
       {!hasNextPage && <ChatWelcome type={type} name={name} />}
@@ -120,6 +120,7 @@ export function ChatMessages({
                 messageDate={format(new Date(message.createdAt), DATE_FORMAT, {
                   locale: dateFnsLocale,
                 })}
+                type={type}
               />
             ))}
           </Fragment>

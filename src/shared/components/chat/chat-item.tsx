@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/shared/lib/utils'
-import { MessageWithMemberWithProfile } from '@/shared/types'
+import { ChatType, MessageWithMemberWithProfile } from '@/shared/types'
 import { UserAvatar } from '../user-avatar'
 import { RoleIcon, TooltipWidget } from '@/widgets'
 import { Member, MemberRole } from '@prisma/client'
@@ -18,6 +18,7 @@ interface Props {
   socketQuery: Record<string, string>
   currentMember: Member
   messageDate: string
+  type?: ChatType
 }
 export function ChatItem({
   className,
@@ -26,17 +27,19 @@ export function ChatItem({
   socketQuery,
   currentMember,
   messageDate,
+  type,
 }: Props) {
   const { onOpen } = useModalStore()
   const [isEditing, setIsEditing] = useState(false)
   const router = useRouter()
-  const isAdmin = currentMember.role === MemberRole.ADMIN
-  const isModerator = currentMember.role === MemberRole.MODERATOR
-  const isOwner = currentMember.id === message.member.id
-
+  const isAdmin = currentMember?.role === MemberRole.ADMIN
+  const isModerator = currentMember?.role === MemberRole.MODERATOR
+  const isOwner = currentMember.id === message?.member?.id
+  const anotherMemberMessageInConversation =
+    type === 'conversation' && message.member.id !== currentMember.id
   const canDeleteMessage =
-    !message.deleted && (isAdmin || isOwner || isModerator)
-  const canEditMessage = !message.deleted && isOwner && !message.fileUrl
+    !message.deleted && (isAdmin || isOwner || isModerator) && !anotherMemberMessageInConversation
+  const canEditMessage = !message.deleted && isOwner && !message.fileUrl && !anotherMemberMessageInConversation
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       setIsEditing(false)
@@ -59,7 +62,7 @@ export function ChatItem({
   return (
     <div
       className={cn(
-        'group min-h-8 w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 p-2 flex gap-4 items-start px-4 transition-colors relative mt-3',
+        'group min-h-8 w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 p-2 flex gap-4 items-start px-4 transition-colors relative mt-3 max-w-full',
         className
       )}
     >
@@ -67,23 +70,26 @@ export function ChatItem({
         onClick={onMemberClick}
         className="cursor-pointer hover:drop-shadow-md transition"
       >
-        {message.member.profile.imageUrl && (
-          <UserAvatar imageUrl={message.member.profile.imageUrl} />
+        {message?.member?.profile?.imageUrl && (
+          <UserAvatar
+            className="size-10 min-h-10 min-w-10"
+            imageUrl={message?.member?.profile?.imageUrl}
+          />
         )}
       </div>
-      <div className="flex flex-col w-full">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col w-full overflow-hidden">
+        <div className="flex items-center gap-2 truncate max-w-full">
           <div
             onClick={onMemberClick}
             className={cn(
               'font-semibold',
-              message.member.id !== currentMember.id &&
+              message.member?.id !== currentMember.id &&
                 ' hover:underline cursor-pointer'
             )}
           >
-            {message.member.profile.name}
+            {message.member?.profile.name}
           </div>
-          <RoleIcon role={message.member.role} />
+          <RoleIcon role={message.member?.role} />
           <span className="text-zinc-500 dark:text-zinc-400">
             {messageDate}
           </span>
@@ -98,11 +104,11 @@ export function ChatItem({
           />
         ) : (
           !message.fileType && (
-            <div className="flex gap-1 items-center">
+            <div className="flex gap-1 items-center max-w-full w-full">
               <p
                 className={cn(
                   message.deleted &&
-                    'italic text-sm text-zinc-500 dark:text-zinc-400 pt-1'
+                    'italic text-sm text-zinc-500 dark:text-zinc-400 pt-1 truncate max-w-full'
                 )}
               >
                 {message.content}
@@ -136,12 +142,12 @@ export function ChatItem({
         )}
       </div>
       {(canEditMessage || canDeleteMessage) && (
-        <div className="group-hover:opacity-100 opacity-0 transition absolute -top-4 right-2 flex gap-1 items-center bg-zinc-200 dark:bg-zinc-700 px-1 rounded-md z-10 border  ">
+        <div className="group-hover:opacity-100 opacity-0 h-10 px-2 transition absolute -top-4 right-2 flex gap-1 items-center bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300  rounded-md z-10 border  ">
           {canEditMessage && (
             <TooltipWidget label="Edit message">
               <Pencil
                 onClick={() => setIsEditing(!isEditing)}
-                className="size-5 min-w-5 min-h-5 cursor-pointer text-zinc-600 dark:text-zinc-300 hover:text-zinc-700 dark:hover:text-zinc-200 ml-1"
+                className="size-5  cursor-pointer hover:text-zinc-700 dark:hover:text-zinc-200 "
               />
             </TooltipWidget>
           )}
@@ -156,7 +162,7 @@ export function ChatItem({
                   })
                 }
                 className={cn(
-                  'size-8 min-w-8 min-h-8  cursor-pointer text-rose-500'
+                  'size-8  cursor-pointer  hover:text-zinc-700 dark:hover:text-zinc-200 '
                 )}
               />
             </TooltipWidget>

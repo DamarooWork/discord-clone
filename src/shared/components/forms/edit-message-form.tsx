@@ -85,6 +85,7 @@ export function EditMessageForm({
                     disabled={isLoading}
                     placeholder={`Edited message`}
                     autoComplete="off"
+                    autoFocus
                     {...field}
                   />
                   <EmojiPicker
