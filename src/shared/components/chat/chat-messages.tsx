@@ -6,7 +6,7 @@ import {
 } from '@/shared/types'
 import { Member } from '@prisma/client'
 import { ChatWelcome } from './chat-welcome'
-import { useChatQuery } from '@/shared/hooks'
+import { useChatQuery, useChatSocket } from '@/shared/hooks'
 import { Loader2, ServerCrash } from 'lucide-react'
 import { Fragment } from 'react'
 import { ChatItem } from './chat-item'
@@ -37,6 +37,8 @@ export function ChatMessages({
   name,
 }: ChatMessagesProps) {
   const queryKey = `chat:${chatId}`
+  const addKey = `chat:${chatId}:messages`
+  const updateKey = `chat:${chatId}:messages:update`
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useChatQuery({
       apiUrl,
@@ -44,6 +46,11 @@ export function ChatMessages({
       paramValue,
       queryKey,
     })
+  useChatSocket({
+    addKey,
+    updateKey,
+    queryKey,
+  })
   const locale = useLocale()
   const dateFnsLocale = getDateFnsLocale(locale)
   if (status === 'pending') {

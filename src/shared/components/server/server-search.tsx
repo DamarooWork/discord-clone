@@ -61,10 +61,10 @@ export function ServerSearch({ server }: ServerSearchProps) {
     setOpen(false)
    
     if (type === 'channels') {
-      router.push(`/servers/${params.serverId}/channels/${id}`)
+      router.push(`/servers/${params?.serverId}/channels/${id}`)
     }
     if (type === 'members') {
-      router.push(`/servers/${params.serverId}/conversations/${id}`)
+      router.push(`/servers/${params?.serverId}/conversations/${id}`)
     }
   }
   return (
@@ -73,8 +73,8 @@ export function ServerSearch({ server }: ServerSearchProps) {
         onClick={() => setOpen((open) => !open)}
         className="group p-2 rounded-md flex items-center gap-x-2 w-full hover:bg-main active:bg-main/80 transition ease-in-out cursor-pointer text-zinc-700 dark:text-zinc-400 "
       >
-        <Search className="size-4 min-w-4 min-h-4 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition ease-in-out" />
-        <span className="group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition ease-in-out font-semibold">
+        <Search className="size-4 min-w-4 min-h-4 group-hover:text-zinc-200 dark:group-hover:text-zinc-300 transition ease-in-out" />
+        <span className="group-hover:text-zinc-200 dark:group-hover:text-zinc-300 transition ease-in-out font-semibold">
           Search
         </span>
         <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-x-1 rounded border border-zinc-200 bg-zinc-50 px-2 text-xs font-semibold text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 ml-auto">

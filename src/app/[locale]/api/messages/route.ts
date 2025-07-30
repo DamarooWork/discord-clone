@@ -46,7 +46,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         take: MESSAGES_BATCH,
         where: {
           channelId: channelId,
-          // deleted: false,
+          deleted: false,
         },
         include: {
           member: {

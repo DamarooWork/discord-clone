@@ -11,7 +11,8 @@ interface Props {
   server: Server
 }
 export function ServerItem({ server }: Props) {
-  const { serverId } = useParams()
+  const params = useParams()
+  const serverId = params?.serverId
   return (
     <li className="relative group">
       <div
@@ -33,6 +34,7 @@ export function ServerItem({ server }: Props) {
             fill
             className="rounded-3xl group-hover/link:rounded-md transition-all ease-in-out object-cover"
             sizes='48px'
+            priority
           />
         </Link>
       </TooltipWidget>
