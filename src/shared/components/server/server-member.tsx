@@ -13,7 +13,7 @@ export function ServerMember({ member }: Props) {
   const router = useRouter()
   const params = useParams()
   const handleMemberClick = () => {
-    router.push(`/servers/${params.serverId}/conversations/${member.id}`)
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
   }
   return (
     <button
@@ -30,7 +30,7 @@ export function ServerMember({ member }: Props) {
       <p
         className={cn(
           'font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition-all ease-in-out',
-          params.memberId === member.id &&
+          params?.memberId === member.id &&
             'text-primary dark:text-zinc-200 dark:group-hover:text-white'
         )}
       >
