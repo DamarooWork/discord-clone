@@ -21,10 +21,12 @@ export function MediaRoom({ chatId, video, audio }: Props) {
   const [token, setToken] = useState<string>('')
   useEffect(() => {
     if (!user?.username) return
+
+    const name = user?.username || `${user?.fullName}`
     ;(async () => {
       try {
         const res = await axios.get(
-          `/api/livekit?username=${user.username}&room=${chatId}`
+          `/api/livekit?username=${name}&room=${chatId}`
         )
         const data = await res.data
         setToken(data.token)
@@ -32,7 +34,7 @@ export function MediaRoom({ chatId, video, audio }: Props) {
         console.log(e)
       }
     })()
-  }, [user?.username, chatId])
+  }, [user?.username, chatId, user?.fullName])
 
   if (token === '') {
     return (
