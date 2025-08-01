@@ -8,16 +8,17 @@ const intlMiddleware = createMiddleware(routing)
 
 const isProtectedRoute = createRouteMatcher([
   '/(.*)/sign-in(.*)',
-  '/(.*)/sign-up(.*)',
-  '/(.*)/api/uploadthing',
   '/sign-in(.*)',
+  '/(.*)/sign-up(.*)',
   '/sign-up(.*)',
+  '/(.*)/api/uploadthing',
   '/api/uploadthing',
+
 ])
 
 export default clerkMiddleware(async (auth, req) => {
   if (!isProtectedRoute(req)) await auth.protect()
-    
+
   if (req.nextUrl.pathname.startsWith('/api/socket')) {
     return NextResponse.next()
   }

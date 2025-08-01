@@ -5,6 +5,7 @@ import { UserAvatar } from '../user-avatar'
 import { NavigationSidebar } from '../navigation'
 import { ServerSidebar } from '../server'
 import { MemberRole } from '@prisma/client'
+import { ChatVideoButton } from './chat-video-button'
 
 interface ChatHeaderProps {
   serverId: string
@@ -41,7 +42,10 @@ export function ChatHeader({
       )}
       <h3 className="font-semibold ">{name}</h3>
       {role && <RoleIcon role={role} />}
-      <SocketIndicator className="ml-auto" />
+      <div className="ml-auto flex items-center">
+        {type === 'conversation' && <ChatVideoButton />}
+        <SocketIndicator />
+      </div>
     </header>
   )
 }

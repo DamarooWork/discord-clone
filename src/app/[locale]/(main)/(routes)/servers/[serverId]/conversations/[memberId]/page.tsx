@@ -1,9 +1,13 @@
 import { ConversationPage } from '@/views'
 interface Props {
   params: Promise<{ serverId: string; memberId: string }>
+  searchParams: Promise<{ video: boolean }>
 }
-export default async function Conversation({ params }: Props) {
+export default async function Conversation({ params, searchParams }: Props) {
   const { serverId, memberId } = await params
- 
-  return <ConversationPage serverId={serverId} memberId={memberId} />
+  const { video } = await searchParams
+
+  return (
+    <ConversationPage serverId={serverId} memberId={memberId} video={video} />
+  )
 }

@@ -38,8 +38,14 @@ export function ChatItem({
   const anotherMemberMessageInConversation =
     type === 'conversation' && message.member.id !== currentMember.id
   const canDeleteMessage =
-    !message.deleted && (isAdmin || isOwner || isModerator) && !anotherMemberMessageInConversation
-  const canEditMessage = !message.deleted && isOwner && !message.fileUrl && !anotherMemberMessageInConversation
+    !message.deleted &&
+    (isAdmin || isOwner || isModerator) &&
+    !anotherMemberMessageInConversation
+  const canEditMessage =
+    !message.deleted &&
+    isOwner &&
+    !message.fileUrl &&
+    !anotherMemberMessageInConversation
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       setIsEditing(false)
@@ -108,7 +114,7 @@ export function ChatItem({
               <p
                 className={cn(
                   message.deleted &&
-                    'italic text-sm text-zinc-500 dark:text-zinc-400 pt-1 truncate max-w-full'
+                    'italic text-sm text-zinc-500 dark:text-zinc-400 pt-1 hyphens-manual  wrap-break-word'
                 )}
               >
                 {message.content}
