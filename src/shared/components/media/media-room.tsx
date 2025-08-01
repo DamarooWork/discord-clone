@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { LiveKitRoom, VideoConference } from '@livekit/components-react'
-import '@livekit/components-styles'
 import { useUser } from '@clerk/nextjs'
 import { Loader2 } from 'lucide-react'
 import axios from 'axios'
+import '@livekit/components-styles'
 
 interface Props {
   chatId: string
@@ -14,6 +14,7 @@ interface Props {
 export function MediaRoom({ chatId, video, audio }: Props) {
   const { user } = useUser()
   const [token, setToken] = useState<string>('')
+
   useEffect(() => {
     if (!user?.username) return
 
@@ -44,13 +45,14 @@ export function MediaRoom({ chatId, video, audio }: Props) {
 
   return (
     <LiveKitRoom
-      className="max-h-[calc(100dvh-48px)]"
+      className="max-h-[calc(100dvh-48px)] max-w-full"
       data-lk-theme="default"
       serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
       token={token}
       video={video}
       audio={audio}
       connect={true}
+      
     >
       <VideoConference />
     </LiveKitRoom>

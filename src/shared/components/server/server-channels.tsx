@@ -1,12 +1,14 @@
 import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 import { ChannelType, MemberRole } from '@prisma/client'
 import { ServerChannel, ServerSection } from '@/shared/components/server'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   server: ServerWithMembersWithProfilesAndChannelsWithProfiles
   role?: MemberRole
 }
 export function ServerChannels({ server, role }: Props) {
+  const t =  useTranslations('server')
   return (
     <>
       {Object.values(ChannelType).map((type) => {
@@ -19,7 +21,7 @@ export function ServerChannels({ server, role }: Props) {
               key={type}
             >
               <ServerSection
-                label={type + ' Channels'}
+                label={type + ` ${t('channels')}`}
                 sectionType="channels"
                 channelType={type}
                 server={server}

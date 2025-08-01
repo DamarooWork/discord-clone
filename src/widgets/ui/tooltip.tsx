@@ -11,6 +11,7 @@ interface Props {
   side?: 'top' | 'right' | 'bottom' | 'left'
   align?: 'start' | 'center' | 'end'
   delayDuration?: number
+  className?: string
 }
 export function TooltipWidget({
   children,
@@ -18,11 +19,12 @@ export function TooltipWidget({
   side = 'top',
   align = 'center',
   delayDuration = 250,
+  className,
 }: Props) {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={delayDuration}>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipTrigger className={className} asChild>{children}</TooltipTrigger>
         <TooltipContent side={side} align={align}>
           <p className="font-semibold text-sm">{label}</p>
         </TooltipContent>

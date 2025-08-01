@@ -31,7 +31,9 @@ export function ServerSection({
       {role !== MemberRole.GUEST && sectionType === 'channels' && (
         <TooltipWidget label="Create Channel" side="top">
           <button
-            onClick={() => onOpen(ModalType.CREATE_CHANNEL, { server, channelType })}
+            onClick={() =>
+              onOpen(ModalType.CREATE_CHANNEL, { server, channelType })
+            }
             className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition-all ease-in-out cursor-pointer"
           >
             <span className="sr-only">Create Channel</span>
@@ -46,7 +48,7 @@ export function ServerSection({
             className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition-all ease-in-out cursor-pointer"
           >
             <span className="sr-only">Manage Members</span>
-            <Settings className="size-4 min-w-4 min-h-4" />
+            <Settings className="size-4 min-w-4 min-h-4 hover:motion-rotate-in-180" />
           </button>
         </TooltipWidget>
       )}

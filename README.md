@@ -9,8 +9,8 @@ It is a fully functional clone of the popular Discord app with a modern UI and a
 
 ## Key Features:
 
-Real-time messaging using Socket.io
-Send attachments as messages using UploadThing
+-Real-time messaging using Socket.io
+-Send attachments as messages using UploadThing
 Delete & Edit messages in real time for all users
 Create Text, Audio and Video call Channels
 1:1 conversation between members

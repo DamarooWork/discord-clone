@@ -19,6 +19,7 @@ import {
   UserPlus,
   Users,
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfilesAndChannelsWithProfiles
@@ -29,6 +30,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
   const isModerator = isAdmin || role === MemberRole.MODERATOR
 
   const { onOpen } = useModalStore()
+  const t =  useTranslations('server')
 
   return (
     <DropdownMenu>
@@ -45,7 +47,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
             onClick={() => onOpen(ModalType.INVITE, { server })}
             className="text-main flex justify-between items-center px-3 py-2 text-sm"
           >
-            Invite people
+            {t('invite_people')}
             <span className="sr-only">Invite people</span>
             <UserPlus className="size-4 min-w-4 min-h-4" />
           </DropdownMenuItem>
@@ -55,7 +57,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
             onClick={() => onOpen(ModalType.EDIT_SERVER, { server })}
             className="flex justify-between items-center px-3 py-2 text-sm"
           >
-            Server Settings
+            {t('server_settings')}
             <span className="sr-only">Server Settings</span>
             <Settings className="size-4 min-w-4 min-h-4" />
           </DropdownMenuItem>
@@ -65,7 +67,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
             onClick={() => onOpen(ModalType.MEMBERS, { server })}
             className="flex justify-between items-center px-3 py-2 text-sm"
           >
-            Manage Members
+            {t('manage_members')}
             <span className="sr-only">Manage Members</span>
             <Users className="size-4 min-w-4 min-h-4" />
           </DropdownMenuItem>
@@ -75,7 +77,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
             onClick={() => onOpen(ModalType.CREATE_CHANNEL, { server })}
             className=" flex justify-between items-center px-3 py-2 text-sm"
           >
-            Create Channel
+            {t('create_channel')}
             <span className="sr-only">Create Channel</span>
             <PlusCircle className="size-4 min-w-4 min-h-4" />
           </DropdownMenuItem>
@@ -87,7 +89,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
             variant="destructive"
             className="text-destructive flex justify-between items-center  px-3 py-2 text-sm"
           >
-            Delete Server
+            {t('delete_server')}
             <span className="sr-only"> Delete Server</span>
             <Trash className="size-4 min-w-4 min-h-4 text-destructive" />
           </DropdownMenuItem>
@@ -98,7 +100,7 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
             variant="destructive"
             className="text-destructive flex justify-between items-center px-3 py-2 text-sm"
           >
-            Leave Server
+            {t('leave_server')}
             <span className="sr-only"> Leave Server</span>
             <LogOut className="size-4 min-w-4 min-h-4 text-destructive" />
           </DropdownMenuItem>
