@@ -1,6 +1,9 @@
-# Fullstack Discord Clone ( in progress... )
+# Fullstack Discord Clone
 
-## This is a full stack Discord clone built with Next.js, React, Socket.io, Prisma, VerselDB, Clerk, TailwindCSS, and ShadcnUI.
+Link:
+https://damaroo-discord.vercel.app/
+
+## This is a full stack Discord clone built with Next.js, React, Socket.io, Prisma, VercelDB, Clerk, TailwindCSS, and ShadcnUI.
 
 It is a fully functional clone of the popular Discord app with a modern UI and a sleek design. It is built using the latest technologies and best practices, making it a great choice for developers looking to create a high-quality Discord clone.
 

@@ -1,14 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
-import {
-  AudioConference,
-  LiveKitRoom,
-  VideoConference,
-} from '@livekit/components-react'
+import { LiveKitRoom, VideoConference } from '@livekit/components-react'
 import '@livekit/components-styles'
 import { useUser } from '@clerk/nextjs'
 import { Loader2 } from 'lucide-react'
-import { useLocale } from 'next-intl'
 import axios from 'axios'
 
 interface Props {
@@ -22,7 +17,7 @@ export function MediaRoom({ chatId, video, audio }: Props) {
   useEffect(() => {
     if (!user?.username) return
 
-    const name = user?.username || `${user?.fullName}`
+    const name = user?.username || `${user?.fullName}` || 'user'
     ;(async () => {
       try {
         const res = await axios.get(
@@ -46,23 +41,10 @@ export function MediaRoom({ chatId, video, audio }: Props) {
       </section>
     )
   }
-  if (video) {
-    return (
-      <LiveKitRoom
-        data-lk-theme="default"
-        serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
-        token={token}
-        video={video}
-        audio={audio}
-        connect={true}
-      >
-        <VideoConference />
-      </LiveKitRoom>
-    )
-  }
 
   return (
     <LiveKitRoom
+      className="max-h-[calc(100dvh-48px)]"
       data-lk-theme="default"
       serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
       token={token}
@@ -70,7 +52,7 @@ export function MediaRoom({ chatId, video, audio }: Props) {
       audio={audio}
       connect={true}
     >
-      <AudioConference />
+      <VideoConference />
     </LiveKitRoom>
   )
 }

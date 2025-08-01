@@ -4,7 +4,9 @@ import { cn } from '@/shared/lib/utils'
 import { ModalType, useModalStore } from '@/shared/store'
 import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 import { ChannelIcon, TooltipWidget } from '@/widgets'
+import { useTracks } from '@livekit/components-react'
 import { Channel, MemberRole } from '@prisma/client'
+import { Track } from 'livekit-client'
 import { Edit, Lock, Trash } from 'lucide-react'
 import { useParams } from 'next/navigation'
 
@@ -28,6 +30,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
     e.stopPropagation()
     onOpen(ModalType.DELETE_CHANNEL,  { channel })
   }
+ 
   return (
     <button
       onClick={handleChannelClick}
