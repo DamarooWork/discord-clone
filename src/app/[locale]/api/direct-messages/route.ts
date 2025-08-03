@@ -30,6 +30,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         },
         where: {
           conversationId: conversationId as string,
+          deleted: false,
         },
         include: {
           member: {

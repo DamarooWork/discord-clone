@@ -29,6 +29,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         },
         where: {
           channelId: channelId as string,
+          deleted: false,
         },
         include: {
           member: {
