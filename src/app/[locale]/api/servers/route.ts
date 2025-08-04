@@ -31,6 +31,11 @@ export async function POST(req: NextRequest) {
               profileId: profile.id,
               type: ChannelType.VOICE,
             },
+            {
+              name: 'Video chat',
+              profileId: profile.id,
+              type: ChannelType.VIDEO,
+            }
           ],
         },
         members: {

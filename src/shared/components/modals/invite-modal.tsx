@@ -113,7 +113,12 @@ export function InviteModal() {
             disabled={isLoading}
           >
             {t('generate_button')}
-            <RefreshCw className="size-4 min-w-4 min-h-4 " />
+            <RefreshCw
+              className={cn(
+                'size-4 min-w-4 min-h-4 ',
+                isLoading && 'animate-spin'
+              )}
+            />
           </Button>
         </div>
       </DialogContent>

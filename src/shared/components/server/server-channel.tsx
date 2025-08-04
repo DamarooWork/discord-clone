@@ -39,7 +39,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
     <button
       onClick={handleChannelClick}
       className={cn(
-        'flex gap-2 items-center group p-2 rounded-md  hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition-all ease-in-out cursor-pointer',
+        'flex gap-2 items-center group p-2 rounded-md  hover:bg-zinc-700/10 active:translate-y-0.5 dark:hover:bg-zinc-700/50 transition-all ease-in-out cursor-pointer ',
         params?.channelId === channel.id && 'bg-zinc-700/20 dark:bg-zinc-700'
       )}
     >

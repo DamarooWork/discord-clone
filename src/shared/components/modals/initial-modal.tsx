@@ -6,18 +6,19 @@ import {
   DialogTitle,
 } from '@/shared/ui'
 import { CreateServerForm } from '@/shared/components/forms'
+import { useTranslations } from 'next-intl'
 
 export function InitialModal() {
+  const t = useTranslations('create_server_modal')
   return (
     <Dialog open>
       <DialogContent className="p-0  overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Customize your server
+              {t('title')}
           </DialogTitle>
           <DialogDescription className="text-center text-foreground text-md">
-            Give your server a personality with a custom name and avatar. You
-            can always change it later.
+              {t('description')}
           </DialogDescription>
           <CreateServerForm />
         </DialogHeader>

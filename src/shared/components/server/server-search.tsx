@@ -50,14 +50,17 @@ export function ServerSearch({ server }: ServerSearchProps) {
     })),
   }
   const data = [...channelsData, membersData]
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.key === 'k' || 'K'|| 'л' || 'Л') && (e.ctrlKey || e.metaKey)) {
-        e.preventDefault()
-        setOpen((open) => !open)
-      }
+  const handleKeyDown = (e: KeyboardEvent) => {
+    console.log(e)
+    if (
+      (e.key === 'k' || e.key === 'K' || e.key === 'л' || e.key === 'Л') &&
+      (e.ctrlKey || e.metaKey)
+    ) {
+      e.preventDefault()
+      setOpen((open) => !open)
     }
+  }
+  useEffect(() => {
     addEventListener('keydown', handleKeyDown)
     return () => removeEventListener('keydown', handleKeyDown)
   }, [])

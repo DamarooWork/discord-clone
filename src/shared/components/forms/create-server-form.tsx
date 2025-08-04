@@ -27,7 +27,6 @@ interface Props {
   children?: React.ReactNode
 }
 export function CreateServerForm({ className, children }: Props) {
-  const t = useTranslations('create_server_modal')
   const g = useTranslations('general')
   const router = useRouter()
   const form = useForm({
