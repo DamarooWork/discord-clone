@@ -22,8 +22,8 @@ export async function NavigationSidebar({ profileId , className }: Props) {
     },
   })
   return (
-    <aside className={cn(" w-18 flex-col z-30 fixed inset-y-0 overflow-hidden h-full border-r", className)}>
-      <div className="gap-3 py-3 flex flex-col justify-between items-center text-primary dark:bg-[#1E1F22]  h-full w-full">
+    <aside className={cn(" w-18 flex-col z-30 fixed inset-y-0 overflow-hidden h-full max-h-screen border-r", className)}>
+      <div className="gap-3 py-3 flex flex-col justify-between items-center text-primary dark:bg-[#1E1F22]  h-full max-h-screen w-full">
         <NavigationAction />
         <Separator className="data-[orientation=horizontal]:w-12 mx-auto data-[orientation=horizontal]:h-[2px] rounded-md" />
         <ServersList servers={servers} />

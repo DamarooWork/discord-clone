@@ -71,7 +71,7 @@ export function ChatItem({
   return (
     <div
       className={cn(
-        'group min-h-8 w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 p-2 flex gap-4 items-start px-4 transition-colors relative mt-3 max-w-full',
+        'group min-h-8 w-full hover:bg-zinc-200 dark:hover:bg-zinc-700 p-2 flex gap-4 items-start md:px-4 transition-colors relative mt-3 max-w-full',
         className
       )}
     >

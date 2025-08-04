@@ -29,7 +29,7 @@ interface Props {
 export function CreateServerForm({ className, children }: Props) {
   const t = useTranslations('create_server_modal')
   const g = useTranslations('general')
-  const router = useRouter()  
+  const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateServerSchema),
     defaultValues: {
@@ -37,11 +37,11 @@ export function CreateServerForm({ className, children }: Props) {
       imageUrl: '',
     },
   })
-const {onClose} = useModalStore()
+  const { onClose } = useModalStore()
   const isLoading = form.formState.isSubmitting
   const onSubmit = async (values: z.infer<typeof CreateServerSchema>) => {
     try {
-     const server= await axios.post('/api/servers',values)
+      const server = await axios.post('/api/servers', values)
       toast.success('The server was created!')
       form.reset()
       router.refresh()
@@ -50,8 +50,7 @@ const {onClose} = useModalStore()
       router.push(`/servers/${server.data.id}`)
     } catch (e) {
       toast.error(g('error_message'))
-      console.log(e);
-      
+      console.log(e)
     }
   }
 
@@ -66,9 +65,7 @@ const {onClose} = useModalStore()
           name="imageUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                Server image
-              </FormLabel>
+              <FormLabel>Server image</FormLabel>
               <FormControl>
                 <FileUploader
                   endpoint="imageUploader"
@@ -86,9 +83,7 @@ const {onClose} = useModalStore()
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                Server name
-              </FormLabel>
+              <FormLabel>Server name</FormLabel>
               <FormControl>
                 <Input
                   className=" "

@@ -63,7 +63,7 @@ export async function ServerSidebar({
         <ServerHeader server={server} role={role} />
         <ServerSearch server={server} />
         <Separator />
-        <ScrollArea className="flex-1 p-3 max-w-full w-full">
+        <ScrollArea className="flex-1 p-3 max-w-full w-full max-h-[calc(100dvh-90px)]">
           <ServerChannels server={server} role={role} />
           <ServerMembers server={server} role={role} profileId={profileId} />
         </ScrollArea>

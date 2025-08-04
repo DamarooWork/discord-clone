@@ -62,7 +62,7 @@ export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn(className, 'p-3 relative')}
+        className={cn(className, 'p-2 md:p-3 relative')}
       >
         <FormField
           control={form.control}

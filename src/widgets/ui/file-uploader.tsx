@@ -88,6 +88,7 @@ export function FileUploader({
               'absolute opacity-0 disabled:opacity-0 group-hover/img:opacity-75 inset-0 w-full h-full  rounded-full text-xl will-change-[opacity] transition-all ',
               endpoint === 'messageFile' && 'rounded-md'
             )}
+            type='button'
             variant={'primary'}
             onClick={changeImage}
             disabled={isLoading}
