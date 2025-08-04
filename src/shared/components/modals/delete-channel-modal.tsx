@@ -17,8 +17,10 @@ import { useRouter } from '@/i18n/navigation'
 import { useState } from 'react'
 import { Channel } from 'diagnostics_channel'
 import { ChannelType } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 export function DeleteChannelModal() {
+  const g = useTranslations('general')
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const { isOpen, onClose, type, data } = useModalStore()
@@ -35,7 +37,7 @@ export function DeleteChannelModal() {
       onClose()
       router.push(`/servers/` + channel?.serverId)
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e)
     } finally {
       setIsLoading(false)
@@ -64,7 +66,7 @@ export function DeleteChannelModal() {
             onClick={handleDeleteChannel}
             disabled={isLoading}
           >
-            Delete
+            {g('delete')}
           </Button>
         </DialogFooter>
       </DialogContent>

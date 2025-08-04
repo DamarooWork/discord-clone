@@ -19,6 +19,7 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { ModalType, useModalStore } from '@/shared/store'
 import { EmojiPicker } from '@/shared/components/forms/ui'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
@@ -29,6 +30,9 @@ interface Props {
 }
 export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
   const { onOpen } = useModalStore()
+  const t = useTranslations('general')
+  const c = useTranslations('chat')
+
   const form = useForm({
     resolver: zodResolver(ChatInputSchema),
     defaultValues: {
@@ -46,7 +50,7 @@ export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
       form.reset()
     } catch (e) {
       console.log(e)
-      toast.error('Something went wrong!', {
+      toast.error(t('error_message'), {
         position: 'top-right',
       })
     }
@@ -79,7 +83,7 @@ export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
                   <Input
                     className="px-12 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
                     disabled={isLoading}
-                    placeholder={`Type ${
+                    placeholder={`${c('input_placeholder')} ${
                       type === 'conversation' ? name : '#' + name
                     } `}
                     autoComplete="off"
@@ -95,15 +99,6 @@ export function ChatInputForm({ className, apiUrl, query, name, type }: Props) {
             </FormItem>
           )}
         />
-
-        {/* <Button
-          className="absolute bottom-4.5 right-4.5"
-          variant="primary"
-          type="submit"
-          disabled={isLoading}
-        >
-          Send
-        </Button> */}
       </form>
     </Form>
   )

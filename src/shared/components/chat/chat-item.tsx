@@ -10,6 +10,7 @@ import { Pencil, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { EditMessageForm } from '../forms'
 import { ModalType, useModalStore } from '@/shared/store'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   message: MessageWithMemberWithProfile
@@ -30,6 +31,8 @@ export function ChatItem({
   type,
 }: Props) {
   const { onOpen } = useModalStore()
+  const t = useTranslations('chat')
+  const g = useTranslations('general')
   const [isEditing, setIsEditing] = useState(false)
   const router = useRouter()
   const isAdmin = currentMember?.role === MemberRole.ADMIN
@@ -121,7 +124,7 @@ export function ChatItem({
               </p>
               {message.createdAt !== message.updatedAt && !message.deleted && (
                 <span className="text-zinc-500 dark:text-zinc-400 text-sm">
-                  (изменено)
+                  ({t('changed')})
                 </span>
               )}
             </div>
@@ -150,7 +153,7 @@ export function ChatItem({
       {(canEditMessage || canDeleteMessage) && (
         <div className="group-hover:opacity-100 opacity-0 h-10 px-2 transition absolute -top-4 right-2 flex gap-1 items-center bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300  rounded-md z-10 border  ">
           {canEditMessage && (
-            <TooltipWidget label="Edit message">
+            <TooltipWidget label={g('edit')}>
               <Pencil
                 onClick={() => setIsEditing(!isEditing)}
                 className="size-5  cursor-pointer hover:text-zinc-700 dark:hover:text-zinc-200 "
@@ -158,7 +161,7 @@ export function ChatItem({
             </TooltipWidget>
           )}
           {canDeleteMessage && (
-            <TooltipWidget label="Delete message">
+            <TooltipWidget label={g('delete')}>
               <X
                 onClick={() =>
                   onOpen(ModalType.DELETE_MESSAGE, {

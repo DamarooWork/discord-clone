@@ -34,8 +34,13 @@ import { UserAvatar } from '@/shared/components'
 import { MemberRole } from '@prisma/client'
 import { RoleIcon } from '@/widgets'
 import { actionRevalidatePath } from '@/shared/lib/actions'
+import { useLocale, useTranslations } from 'next-intl'
+import { getWordEnding } from '@/shared/lib/utils'
 
 export function MembersModal() {
+  const g = useTranslations('general')
+  const s = useTranslations('server')
+  const locale = useLocale()
   const { onOpen, isOpen, onClose, type, data } = useModalStore()
   const [loadingId, setLoadingId] = useState<string>('')
   const isModalOpen = isOpen && type === ModalType.MEMBERS
@@ -53,7 +58,7 @@ export function MembersModal() {
       toast.success('Member role updated!')
       await actionRevalidatePath()
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e)
     } finally {
       setLoadingId('')
@@ -68,7 +73,7 @@ export function MembersModal() {
       onOpen(ModalType.MEMBERS, { server: response.data })
       toast.success('Member is kicked!')
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e)
     } finally {
       setLoadingId('')
@@ -83,15 +88,20 @@ export function MembersModal() {
       >
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Manage Members
+           {s('manage_members')}
           </DialogTitle>
           <DialogDescription className="text-center text-foreground text-md">
-            {server?.members?.length} Members
+            {server?.members?.length} {locale ==='ru' ? getWordEnding({
+              ending1: 'участник',
+              ending2: 'участника',
+              ending3: 'участников',
+              number: server?.members?.length ?? 1,
+            }): s('members')}
           </DialogDescription>
         </DialogHeader>
         <div className="m-4  flex flex-col items-start gap-2">
           <Label className="uppercase text-xs font-bold text-foreground">
-            MEMBERS:
+            {s('members')}:
           </Label>
           <ScrollArea className="w-full max-h-80">
             <ul className="flex flex-col gap-2">

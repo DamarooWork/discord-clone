@@ -14,8 +14,10 @@ import { toast } from 'sonner'
 import { useState } from 'react'
 import { useRouter } from '@/i18n/navigation'
 import { actionRevalidatePath } from '@/shared/lib/actions'
+import { useTranslations } from 'next-intl'
 
 export function LeaveServerModal() {
+  const g = useTranslations('general')
   const { isOpen, onClose, type, data } = useModalStore()
   const isModalOpen = isOpen && type === ModalType.LEAVE_SERVER
   const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +31,7 @@ export function LeaveServerModal() {
       await actionRevalidatePath()
       router.push(`/`)
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e)
     } finally {
       setIsLoading(false)

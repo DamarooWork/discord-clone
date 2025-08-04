@@ -15,8 +15,10 @@ import { actionDeleteUploadThingFile } from '@/shared/lib/actions'
 import { useState } from 'react'
 import qs from 'query-string'
 import { Loader2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function DeleteMessageModal() {
+  const g = useTranslations('general')
   const [isLoading, setIsLoading] = useState(false)
   const { isOpen, onClose, type, data } = useModalStore()
   const { query, apiUrl, messageFileUrl } = data
@@ -36,7 +38,7 @@ export function DeleteMessageModal() {
       onClose()
     } catch (e) {
       console.log(e)
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
     } finally {
       setIsLoading(false)
     }
@@ -63,7 +65,7 @@ export function DeleteMessageModal() {
             onClick={handleDeleteMessage}
             disabled={isLoading}
           >
-            {isLoading ? <Loader2 className="size-6 mx-1  animate-spin" /> : 'Delete'}
+            {isLoading ? <Loader2 className="size-6 mx-1  animate-spin" /> : g('delete')}
           </Button>
         </DialogFooter>
       </DialogContent>

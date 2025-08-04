@@ -9,6 +9,7 @@ interface Props {
 }
 export function ServerChannels({ server, role }: Props) {
   const t =  useTranslations('server')
+  const g = useTranslations('general')
   return (
     <>
       {Object.values(ChannelType).map((type) => {
@@ -21,7 +22,7 @@ export function ServerChannels({ server, role }: Props) {
               key={type}
             >
               <ServerSection
-                label={type + ` ${t('channels')}`}
+                label={g(`${type.toLowerCase()}_channels`) + ` ${t('channels')}`}
                 sectionType="channels"
                 channelType={type}
                 server={server}

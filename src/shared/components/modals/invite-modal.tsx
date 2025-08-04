@@ -17,8 +17,12 @@ import { useOrigin } from '@/shared/hooks'
 import { toast } from 'sonner'
 import axios from 'axios'
 import { cn } from '@/shared/lib/utils'
+import { useTranslations } from 'next-intl'
 
 export function InviteModal() {
+  const t = useTranslations('invite_modal')
+  const g = useTranslations('general')
+
   const { onOpen, isOpen, onClose, type, data } = useModalStore()
   const origin = useOrigin()
   const [copied, setCopied] = useState<boolean>(false)
@@ -34,7 +38,7 @@ export function InviteModal() {
     navigator.clipboard.writeText(inviteLink)
     if (!copied) {
       setCopied(true)
-      toast.success('Copied!')
+      toast.success(t('copied'))
       setTimeout(() => {
         setCopied(false)
       }, 3000)
@@ -48,9 +52,9 @@ export function InviteModal() {
         `/api/servers/${data.server?.id}/invite-code`
       )
       onOpen(ModalType.INVITE, { server: response.data })
-      toast.success('New link was generated!')
+      toast.success(t('new_link_toast'))
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e)
     } finally {
       setIsLoading(false)
@@ -64,10 +68,10 @@ export function InviteModal() {
       >
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Here your invite link!
+            {t('title')}
           </DialogTitle>
           <DialogDescription className="text-center text-md">
-            You can invite people with this link!
+            {t('description')}
           </DialogDescription>
         </DialogHeader>
         <div className="m-4  flex flex-col items-start gap-2">
@@ -108,7 +112,7 @@ export function InviteModal() {
             onClick={handleGenerateLink}
             disabled={isLoading}
           >
-            Generate a new link
+            {t('generate_button')}
             <RefreshCw className="size-4 min-w-4 min-h-4 " />
           </Button>
         </div>

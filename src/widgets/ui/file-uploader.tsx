@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { FileIcon, X } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { MessageFileType } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
@@ -31,9 +32,10 @@ export function FileUploader({
   setFileName = () => {},
   fileName = '',
 }: Props) {
+  const g = useTranslations('general')
   const buttonClass = `group relative flex justify-center items-center h-10 w-32 cursor-pointer mt-2 overflow-hidden rounded-md text-background dark:text-foreground  after:transition-[width] after:duration-500 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 disabled:pointer-events-none data-[state=disabled]:cursor-not-allowed data-[state=readying]:cursor-not-allowed data-[state=disabled]:bg-indigo-400 data-[state=ready]:bg-main bg-transparent outline-none border-[1px] border-indigo-300 rounded-lg p-2 data-[state=readying]:bg-indigo-800 data-[state=uploading]:bg-indigo-400 after:absolute after:left-0 after:h-full after:w-[var(--progress-width)] after:content-[''] data-[state=uploading]:after:bg-indigo-600`
   const [isImageLoaded, setImageLoaded] = useState(false)
-  
+
   const onLoadingComplete = () => {
     setImageLoaded(true)
   }
@@ -45,7 +47,7 @@ export function FileUploader({
     setImageLoaded(false)
   }
   const onError = (event: React.SyntheticEvent) => {
-    toast.error(`Упс! ${event.type}`)
+    toast.error(`${g('error_message')} ${event.type}`)
     changeImage()
   }
   if (value && !fileName) {
@@ -90,7 +92,7 @@ export function FileUploader({
             onClick={changeImage}
             disabled={isLoading}
           >
-            Change image
+            {g('edit')}
           </Button>
         </div>
       </section>
@@ -117,7 +119,7 @@ export function FileUploader({
           className="size-12 text-rose-500  cursor-pointer "
           onClick={changeImage}
         >
-          Change file
+          {g('edit')}
         </X>
       </section>
     )

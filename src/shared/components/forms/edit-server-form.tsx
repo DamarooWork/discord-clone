@@ -20,6 +20,7 @@ import axios from 'axios'
 import { useModalStore } from '@/shared/store'
 import { actionRevalidatePath } from '@/shared/lib/actions'
 import { Server } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
@@ -27,6 +28,8 @@ interface Props {
   server?: Server
 }
 export function EditServerForm({ className, children, server }: Props) {
+  const t = useTranslations('edit_server_modal')
+  const g = useTranslations('general')
   const form = useForm({
     resolver: zodResolver(CreateServerSchema),
     defaultValues: {
@@ -43,16 +46,16 @@ export function EditServerForm({ className, children, server }: Props) {
       server?.name === form.getValues('name') &&
       server?.imageUrl === form.getValues('imageUrl')
     ) {
-      toast.success('Change something for update!')
+      toast.error(t('error_toast_change_something'))
       return
     }
     try {
       await axios.patch(`/api/servers/${server?.id}`, values)
-      toast.success('The server was updated!')
+      toast.success(t('updated_toast'))
       await actionRevalidatePath()
       onClose()
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e)
     }
   }
@@ -96,7 +99,7 @@ export function EditServerForm({ className, children, server }: Props) {
                   className=" "
                   disabled={isLoading}
                   {...field}
-                  placeholder="for example: My Server"
+                  placeholder="My Server"
                 />
               </FormControl>
               <FormMessage />
@@ -109,7 +112,7 @@ export function EditServerForm({ className, children, server }: Props) {
             type="submit"
             disabled={isLoading}
           >
-            Save
+            {g('save')}
           </Button>
         </footer>
         {children}

@@ -7,6 +7,7 @@ import {
 import { TooltipWidget } from '@/widgets'
 import { ChannelType, MemberRole } from '@prisma/client'
 import { Plus, Settings } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 interface ServerSectionProps {
   label: string
@@ -23,13 +24,15 @@ export function ServerSection({
   server,
 }: ServerSectionProps) {
   const { onOpen } = useModalStore()
+  const t =  useTranslations('server')
+
   return (
     <section className="flex justify-between items-center mb-2">
       <h3 className="text-xs uppercase font-semibold text-zinc-500 dark:text-zinc-400">
         {label}
       </h3>
       {role !== MemberRole.GUEST && sectionType === 'channels' && (
-        <TooltipWidget label="Create Channel" side="top">
+        <TooltipWidget label={t('create_channel')} side="top">
           <button
             onClick={() =>
               onOpen(ModalType.CREATE_CHANNEL, { server, channelType })
@@ -42,7 +45,7 @@ export function ServerSection({
         </TooltipWidget>
       )}
       {role === MemberRole.ADMIN && sectionType === 'members' && (
-        <TooltipWidget label="Manage Members" side="top">
+        <TooltipWidget label={t('manage_members')} side="top">
           <button
             onClick={() => onOpen(ModalType.MEMBERS, { server })}
             className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition-all ease-in-out cursor-pointer"

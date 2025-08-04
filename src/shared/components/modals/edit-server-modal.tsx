@@ -9,8 +9,10 @@ import {
 } from '@/shared/ui'
 import { EditServerForm } from '@/shared/components/forms'
 import { useModalStore, ModalType } from '@/shared/store'
+import { useTranslations } from 'next-intl'
 
 export function EditServerModal() {
+  const t = useTranslations('edit_server_modal')
   const { isOpen, onClose, type, data } = useModalStore()
   const isModalOpen = isOpen && type === ModalType.EDIT_SERVER
   const { server } = data
@@ -19,11 +21,10 @@ export function EditServerModal() {
       <DialogContent className="p-0  overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit your server
+            {t('title')}
           </DialogTitle>
           <DialogDescription className="text-center text-foreground text-md">
-            Here you can edit your server name and avatar. You can always change
-            it later.
+            {t('description')}
           </DialogDescription>
           <EditServerForm server={server} />
         </DialogHeader>

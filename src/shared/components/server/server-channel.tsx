@@ -8,6 +8,7 @@ import { useTracks } from '@livekit/components-react'
 import { Channel, MemberRole } from '@prisma/client'
 import { Track } from 'livekit-client'
 import { Edit, Lock, Trash } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useParams } from 'next/navigation'
 
 interface ServerChannelProps {
@@ -17,8 +18,11 @@ interface ServerChannelProps {
 }
 export function ServerChannel({ channel, server, role }: ServerChannelProps) {
   const { onOpen } = useModalStore()
+
   const params = useParams()
   const router = useRouter()
+  const g = useTranslations('general')
+  const t = useTranslations('server')
   const handleChannelClick = () => {
     router.push(`/servers/${channel.serverId}/channels/${channel.id}`)
   }
@@ -54,7 +58,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
       </p>
       <div className="flex gap-1.5 items-center ml-auto">
         {channel.name !== 'General' && role !== MemberRole.GUEST && (
-          <TooltipWidget label="Edit">
+          <TooltipWidget label={g('edit')}>
             <Edit
               onClick={handleEditChannel}
               className="size-4 min-w-4 min-h-4 text-foreground cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-300"
@@ -62,7 +66,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
           </TooltipWidget>
         )}
         {channel.name !== 'General' && role !== MemberRole.GUEST && (
-          <TooltipWidget label="Delete">
+          <TooltipWidget label={g('delete')}>
             <Trash
               onClick={handleDeleteChannel}
               className="size-4 min-w-4 min-h-4 text-foreground cursor-pointer  opacity-0  group-hover:opacity-100  transition-opacity ease-in-out duration-300"
@@ -70,7 +74,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
           </TooltipWidget>
         )}
         {channel.name === 'General' && (
-          <TooltipWidget label="General channel">
+          <TooltipWidget label={t('general_channel')}>
             <Lock className="size-4 min-w-4 min-h-4 text-foreground cursor-default opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-300" />
           </TooltipWidget>
         )}

@@ -20,12 +20,15 @@ import { useRouter } from '@/i18n/navigation'
 import axios from 'axios'
 import { useModalStore } from '@/shared/store'
 import { actionRevalidatePath } from '@/shared/lib/actions'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
   children?: React.ReactNode
 }
 export function CreateServerForm({ className, children }: Props) {
+  const t = useTranslations('create_server_modal')
+  const g = useTranslations('general')
   const router = useRouter()  
   const form = useForm({
     resolver: zodResolver(CreateServerSchema),
@@ -46,7 +49,7 @@ const {onClose} = useModalStore()
       onClose()
       router.push(`/servers/${server.data.id}`)
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e);
       
     }
@@ -91,21 +94,21 @@ const {onClose} = useModalStore()
                   className=" "
                   disabled={isLoading}
                   {...field}
-                  placeholder="for example: My Server"
+                  placeholder="My Server"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <footer className="py-4 flex justify-end">
+        <footer className="pb-4 flex justify-end">
           <Button
             variant="primary"
             type="submit"
             disabled={isLoading}
             className="w-full"
           >
-            Create
+            {g('create')}
           </Button>
         </footer>
         {children}

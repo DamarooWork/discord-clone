@@ -21,6 +21,7 @@ import { actionRevalidatePath } from '@/shared/lib/actions'
 import { Channel } from '@prisma/client'
 import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
 import { EditChannelSchema } from './edit-channel-schema'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
@@ -34,6 +35,8 @@ export function EditChannelForm({
   channel,
   server,
 }: Props) {
+  const g = useTranslations('general')
+  const t = useTranslations('edit_channel_modal')
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(EditChannelSchema),
@@ -47,13 +50,13 @@ export function EditChannelForm({
     try {
       if (values.name === channel.name) {
         form.setError('name', {
-          message: 'You did not change the name of the channel!',
+          message: t('form_error_same_name'),
         })
         return
       }
       if (server.channels.find((channel) => channel.name === values.name)) {
         form.setError('name', {
-          message: 'A channel with this name already exists!',
+          message: t('form_error_name_exists'),
         })
         return
       }
@@ -61,12 +64,12 @@ export function EditChannelForm({
         `/api/servers/${server.id}/channels/${channel.id}`,
         values
       )
-      toast.success('The name of the channel was updated!')
+      toast.success(t('updated_channel_toast'))
       router.refresh()
       await actionRevalidatePath()
       onClose()
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(t('error_message'))
       console.log(e)
     }
   }
@@ -87,7 +90,7 @@ export function EditChannelForm({
                 <Input
                   disabled={isLoading}
                   {...field}
-                  placeholder={'previous: ' + channel.name}
+                  placeholder={channel.name}
                 />
               </FormControl>
               <FormMessage />
@@ -101,7 +104,7 @@ export function EditChannelForm({
             type="submit"
             disabled={isLoading}
           >
-            Save
+            {g('save')}
           </Button>
         </footer>
         {children}

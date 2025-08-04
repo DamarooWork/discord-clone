@@ -20,6 +20,7 @@ import { useModalStore } from '@/shared/store'
 import { actionDeleteUploadThingFile, actionRevalidatePath } from '@/shared/lib/actions'
 import { DeleteServerSchema } from './delete-server-schema'
 import { Server } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
@@ -27,6 +28,7 @@ interface Props {
   server?: Server
 }
 export function DeleteServerForm({ className, children, server }: Props) {
+  const g = useTranslations('general')
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(DeleteServerSchema),
@@ -53,7 +55,7 @@ export function DeleteServerForm({ className, children, server }: Props) {
       onClose()
       router.push(`/`)
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e)
     }
   }
@@ -75,7 +77,7 @@ export function DeleteServerForm({ className, children, server }: Props) {
                   className=""
                   disabled={isLoading}
                   {...field}
-                  placeholder="server name"
+                  placeholder={server?.name}
                 />
               </FormControl>
               <FormMessage />
@@ -88,7 +90,7 @@ export function DeleteServerForm({ className, children, server }: Props) {
             type="submit"
             disabled={isLoading}
           >
-            Delete
+            {g('delete')}
           </Button>
         </footer>
         {children}

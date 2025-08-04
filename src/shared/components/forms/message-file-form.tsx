@@ -20,9 +20,11 @@ import { useModalStore } from '@/shared/store'
 import { MessageFileSchema } from './message-file-schema'
 import { useState } from 'react'
 import { MessageFileType } from '@prisma/client'
+import { useTranslations } from 'next-intl'
 
 
 export function MessageFileForm() {
+  const g = useTranslations('general')
   const [fileType, setFileType] = useState<MessageFileType>('IMAGE')
   const [fileName, setFileName] = useState('')
   const router = useRouter()
@@ -55,7 +57,7 @@ export function MessageFileForm() {
       router.refresh()
       onClose()
     } catch (e) {
-      toast.error('Something went wrong!', {
+      toast.error(g('error_message'), {
         position: 'top-right',
       })
       console.log(e)
@@ -89,7 +91,7 @@ export function MessageFileForm() {
 
         <footer className="pb-4 flex justify-end">
           <Button variant="primary" type="submit" disabled={isLoading}>
-            Send
+            {g('send')}
           </Button>
         </footer>
       </form>

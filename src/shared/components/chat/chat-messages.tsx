@@ -10,7 +10,7 @@ import { useChatQuery, useChatScroll, useChatSocket } from '@/shared/hooks'
 import { Loader2, ServerCrash } from 'lucide-react'
 import { Fragment, useRef } from 'react'
 import { ChatItem } from './chat-item'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { DATE_FORMAT, getDateFnsLocale } from '@/shared/lib/contants'
 import { format } from 'date-fns'
 
@@ -36,6 +36,8 @@ export function ChatMessages({
   paramValue,
   name,
 }: ChatMessagesProps) {
+  const t = useTranslations('chat')
+  const g = useTranslations('general')
   const queryKey = `chat:${chatId}`
   const addKey = `chat:${chatId}:messages`
   const updateKey = `chat:${chatId}:messages:update`
@@ -61,7 +63,7 @@ export function ChatMessages({
     triggerLoadMore: fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    count: data?.pages?.[0]?.items?.length ?? 0
+    count: data?.pages?.[0]?.items?.length ?? 0,
   })
   const locale = useLocale()
   const dateFnsLocale = getDateFnsLocale(locale)
@@ -70,7 +72,7 @@ export function ChatMessages({
       <section className={'flex-1 flex flex-col justify-center items-center'}>
         <Loader2 className="size-16 text-zinc-500 dark:text-zinc-400 my-2 animate-spin" />
         <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-          Loading messages...
+        {t('loading_message')}
         </p>
       </section>
     )
@@ -80,7 +82,7 @@ export function ChatMessages({
       <section className={'flex-1 flex flex-col justify-center items-center'}>
         <ServerCrash className="size-16 text-zinc-500 dark:text-zinc-400 my-2" />
         <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-          Something went wrong
+        {g('error_message')}
         </p>
       </section>
     )
@@ -102,7 +104,7 @@ export function ChatMessages({
               className=" text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 cursor-pointer transition ease-in-out"
               onClick={() => fetchNextPage()}
             >
-              Load More
+                {t('load_more')}
             </button>
           )}
         </div>

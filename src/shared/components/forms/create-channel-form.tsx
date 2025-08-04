@@ -26,14 +26,17 @@ import { actionRevalidatePath } from '@/shared/lib/actions'
 import { CreateChannelSchema } from './create-channel-schema'
 import { ChannelType } from '@prisma/client'
 import { ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
-  children?: React.ReactNode
   server: ServerWithMembersWithProfilesAndChannelsWithProfiles
   channelType?: ChannelType
 }
-export function CreateChannelForm({ className, children, server, channelType }: Props) {
+export function CreateChannelForm({ className, server, channelType }: Props) {
+  const g = useTranslations('general')
+  const t = useTranslations('create_channel_modal')
+  const e = useTranslations('edit_channel_modal')
   const router = useRouter()
   const form = useForm({
     resolver: zodResolver(CreateChannelSchema),
@@ -48,18 +51,18 @@ export function CreateChannelForm({ className, children, server, channelType }: 
     try {
       if (server.channels.find((channel) => channel.name === values.name)) {
         form.setError('name', {
-          message: 'A channel with this name already exists!',
+          message: e('form_error_name_exists'),
         })
         return
       }
       await axios.post(`/api/servers/${server.id}/channels`, values)
-      toast.success('The channel was created!')
+      toast.success(t('created_toast'))
       form.reset()
       router.refresh()
       await actionRevalidatePath()
       onClose()
     } catch (e) {
-      toast.error('Something went wrong!')
+      toast.error(g('error_message'))
       console.log(e)
     }
   }
@@ -77,11 +80,7 @@ export function CreateChannelForm({ className, children, server, channelType }: 
             <FormItem>
               <FormLabel>Channel name</FormLabel>
               <FormControl>
-                <Input
-                  disabled={isLoading}
-                  {...field}
-                  placeholder="for example: Chat"
-                />
+                <Input disabled={isLoading} {...field} placeholder="My chat" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -116,15 +115,10 @@ export function CreateChannelForm({ className, children, server, channelType }: 
           )}
         />
         <footer className="py-4 flex justify-end">
-          <Button
-            variant="primary"
-            type="submit"
-            disabled={isLoading}
-          >
-            Create
+          <Button variant="primary" type="submit" disabled={isLoading}>
+            {g('create')}
           </Button>
         </footer>
-        {children}
       </form>
     </Form>
   )

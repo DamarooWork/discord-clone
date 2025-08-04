@@ -24,8 +24,9 @@ export function ServerSearch({ server }: ServerSearchProps) {
   const router = useRouter()
   const params = useParams()
   const t =  useTranslations('server')
+  const g = useTranslations('general')
   const channelsData = Object.values(ChannelType).map((type) => ({
-    label: type + ' Channels',
+    label: g(`${type.toLowerCase()}_channels`) + ` ${t('channels')}`,
     type: 'channels' as SectionType,
     data: server.channels
       .filter((channel) => channel.type === type)
@@ -37,7 +38,7 @@ export function ServerSearch({ server }: ServerSearchProps) {
   }))
 
   const membersData = {
-    label: 'Members',
+    label: t('members'),
     type: 'members' as SectionType,
     data: server.members.map((member) => ({
       icon: <RoleIcon role={member.role} />,
@@ -76,7 +77,7 @@ export function ServerSearch({ server }: ServerSearchProps) {
       >
         <Search className="size-4 min-w-4 min-h-4 group-hover:text-zinc-200 dark:group-hover:text-zinc-300 transition ease-in-out group-hover:motion-preset-pulse        " />
         <span className="group-hover:text-zinc-200 dark:group-hover:text-zinc-300 transition ease-in-out font-semibold">
-          {t('search') ?? 'Search'}
+          {t('search')}
         </span>
         <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-x-1 rounded border border-zinc-200 bg-zinc-50 px-2 text-xs font-semibold text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 ml-auto">
           <span>ctrl</span>+<span>K</span>
