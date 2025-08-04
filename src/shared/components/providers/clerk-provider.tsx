@@ -5,7 +5,23 @@ export default function ClerkProvider({
 }: {
   children: React.ReactNode
 }) {
-  return <ClerkProviderComponent  appearance={{
-    cssLayerName: 'clerk',
-  }}>{children}</ClerkProviderComponent>
+  return (
+    <ClerkProviderComponent
+      appearance={{
+        cssLayerName: 'clerk',
+        elements: {
+          organizationSwitcherPopoverRootBox: {
+            width: '100%',
+            pointerEvents: 'auto',
+          },
+          userButtonPopoverRootBox: {
+            width: '100%',
+            pointerEvents: 'auto',
+          },
+        },
+      }}
+    >
+      {children}
+    </ClerkProviderComponent>
+  )
 }

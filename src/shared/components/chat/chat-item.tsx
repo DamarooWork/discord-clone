@@ -151,7 +151,7 @@ export function ChatItem({
         )}
       </div>
       {(canEditMessage || canDeleteMessage) && (
-        <div className="group-hover:opacity-100 opacity-0 h-10 px-2 transition absolute -top-4 right-2 flex gap-1 items-center bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300  rounded-md z-10 border  ">
+        <div className="group-hover:opacity-100 pointer-coarse:opacity-50 opacity-0 h-10 px-2 transition absolute -top-4 pointer-coarse:-top-8 right-2 flex gap-1 items-center bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300  rounded-md z-10 border  ">
           {canEditMessage && (
             <TooltipWidget label={g('edit')}>
               <Pencil
