@@ -1,6 +1,9 @@
 'use client'
 import { useRouter } from '@/i18n/navigation'
-import { SectionType, ServerWithMembersWithProfilesAndChannelsWithProfiles } from '@/shared/types'
+import {
+  SectionType,
+  ServerWithMembersWithProfilesAndChannelsWithProfiles,
+} from '@/shared/types'
 import {
   CommandDialog,
   CommandInput,
@@ -23,7 +26,7 @@ export function ServerSearch({ server }: ServerSearchProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const params = useParams()
-  const t =  useTranslations('server')
+  const t = useTranslations('server')
   const g = useTranslations('general')
   const channelsData = Object.values(ChannelType).map((type) => ({
     label: g(`${type.toLowerCase()}_channels`) + ` ${t('channels')}`,
@@ -48,10 +51,9 @@ export function ServerSearch({ server }: ServerSearchProps) {
   }
   const data = [...channelsData, membersData]
 
- 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.ctrlKey || e.metaKey)) {
+      if ((e.key === 'k' || 'K'|| 'л' || 'Л') && (e.ctrlKey || e.metaKey)) {
         e.preventDefault()
         setOpen((open) => !open)
       }
@@ -61,7 +63,7 @@ export function ServerSearch({ server }: ServerSearchProps) {
   }, [])
   const handleCommandSelect = (id: string, type: SectionType) => {
     setOpen(false)
-   
+
     if (type === 'channels') {
       router.push(`/servers/${params?.serverId}/channels/${id}`)
     }
@@ -70,7 +72,7 @@ export function ServerSearch({ server }: ServerSearchProps) {
     }
   }
   return (
-    <section className='p-3'>
+    <section className="p-3">
       <button
         onClick={() => setOpen((open) => !open)}
         className="group p-2 rounded-md flex items-center gap-x-2 w-full hover:bg-main active:bg-main/80 transition ease-in-out cursor-pointer text-zinc-700 dark:text-zinc-400 "
@@ -92,7 +94,10 @@ export function ServerSearch({ server }: ServerSearchProps) {
             return (
               <CommandGroup key={label} heading={label}>
                 {data.map(({ icon, name, id }) => (
-                  <CommandItem key={id} onSelect={() => handleCommandSelect(id, type)}>
+                  <CommandItem
+                    key={id}
+                    onSelect={() => handleCommandSelect(id, type)}
+                  >
                     {icon}
                     {name}
                   </CommandItem>
