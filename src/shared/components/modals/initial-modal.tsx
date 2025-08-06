@@ -12,7 +12,7 @@ export function InitialModal() {
   const t = useTranslations('create_server_modal')
   return (
     <Dialog open>
-      <DialogContent className="p-0  overflow-hidden">
+      <DialogContent showCloseButton={false} className="p-0  overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
               {t('title')}
