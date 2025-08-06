@@ -19,11 +19,11 @@ export function CreateServerModal() {
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent className="p-0  overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
+        <DialogHeader className="pt-8 sm:px-6 sm:text-center px-3 max-w-[calc(100vw-2rem)] ">
+          <DialogTitle className="text-2xl  font-bold">
             {t('title')}
           </DialogTitle>
-          <DialogDescription className="text-center text-foreground text-md">
+          <DialogDescription className=" text-foreground text-md">
             {t('description')}
           </DialogDescription>
           <CreateServerForm />

@@ -19,7 +19,7 @@ export function ServerMember({ member }: Props) {
     <button
       onClick={handleMemberClick}
       className={cn(
-        'group p-2 flex items-center gap-2 rounded-md w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition cursor-pointer',
+        'group p-2 flex items-center gap-2 rounded-md w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition-all ease-in-out cursor-pointer active:translate-y-0.5',
         params?.memberId === member.id && 'bg-zinc-700/20 dark:bg-zinc-700'
       )}
     >

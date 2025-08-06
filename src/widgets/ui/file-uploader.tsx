@@ -88,7 +88,7 @@ export function FileUploader({
               'absolute opacity-0 disabled:opacity-0 group-hover/img:opacity-75 inset-0 w-full h-full  rounded-full text-xl will-change-[opacity] transition-all ',
               endpoint === 'messageFile' && 'rounded-md'
             )}
-            type='button'
+            type="button"
             variant={'primary'}
             onClick={changeImage}
             disabled={isLoading}
@@ -126,16 +126,16 @@ export function FileUploader({
     )
   }
   return (
-    <section className={className}>
+    <section className={cn('', className)}>
       <UploadDropzone
         config={{ cn: twMerge, mode: 'auto' }}
-        className={'cursor-pointer'}
+        className={'cursor-pointer max-w-[calc(100vw-2rem)] px-2'}
         appearance={{
           container: 'group/dropzone border-foreground',
           button: buttonClass,
           allowedContent: 'text-foreground',
           label:
-            'mt-0 text-foreground group-hover/dropzone:underline hover:text-foreground',
+            'mt-0 text-foreground group-hover/dropzone:underline hover:text-foreground w-fit',
           uploadIcon: 'text-foreground',
         }}
         endpoint={endpoint}

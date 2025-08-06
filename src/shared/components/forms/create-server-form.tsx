@@ -57,7 +57,7 @@ export function CreateServerForm({ className, children }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn(className, 'space-y-4')}
+        className={cn(className, 'space-y-4 ')}
       >
         <FormField
           control={form.control}
@@ -71,6 +71,7 @@ export function CreateServerForm({ className, children }: Props) {
                   value={field.value}
                   isLoading={isLoading}
                   onChange={field.onChange}
+               
                 />
               </FormControl>
               <FormMessage />
